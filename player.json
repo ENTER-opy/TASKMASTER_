@@ -1,3 +1,3 @@
 [{"player": {"user": "", "password": "", "tasks_to_do": [],"tasks_done": 0, "gold": 0,"level": 1, "hp": 100}},
   {"items": {"swords": ["The Mighty Stick", "The Rusted Blade, The Iron Sword","The Dragon's Blade"], "bows": ["The Mighty Slingshot", "The Crooked Bow", "The Deathly Sling", "The Pillager's Crossbow"], "shields": ["The Ceramic Plate", "The Great Stone Slab", "The Viking Shield", "Caesar's Shield"]}},
-  {"Bosses":  ["Pro","Procra", "Procra of Ashton", "Procra of Ashton Nation"], "boss_hp": 150}}]
+  {"Bosses":  ["Pro","Procra", "Procra of Ashton", "Procra of Ashton Nation"], "boss_hp": 150}]
