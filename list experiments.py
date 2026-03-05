@@ -60,7 +60,11 @@ def view_stats(data):
 
 
 def add_task(data):
-    pass
+    name = input("Enter Task Name:")
+    json.update("tasks_to_do"):name)
+    with open("players.json", "w") as f:
+        json.dump(data, f, indent=4)
+
 
 
 def complete_task(data):
