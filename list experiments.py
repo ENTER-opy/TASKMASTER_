@@ -59,7 +59,8 @@ def view_stats(data):
 
 def buy_items(data):
     bought_items = []
-    for items in data[]
+    for items in data["items"]:
+        bought_items.append(items["title"])
 
 def add_task(data):
     pass
