@@ -4,6 +4,11 @@ import time
 print("WELCOME TO TASMKMASTER!")
 print("A project by: Augusto Alfonso Cayabyab, Juan Miguel Rivera, and Gilian Uoiea Janiola!")
 print("For starters, this is the whole point of taskmaster: ELIMINATE PROCRASTINATION!")
+print("To use this, follow the given instructions.")
+print("You will see a menu with 7 choices. Preferably, choose the New Profile or New username/password option to give yourself\n"
+      "an identity. Now, choose Add Task. This will aid you in completing tasks for gold. If you want to claim your reward \n"
+      "after finishing a task, choose the Mark Task as Completed option. Great. You finished your first task. \n"
+      "Now, you can buy items. Choose the Buy Items option. ")
 def load_game():
     global data
     with open("player.json", "r") as f:
@@ -30,7 +35,8 @@ def sign_in():
     while not done:
         userlogin = input("Enter your Hero Title: ")
         passlogin = input("Enter your Hero's Code (password): ")
-        if userlogin == data[0]["player"] and passlogin
+        if userlogin == data[0]["player"] and passlogin == data[0]["player"]["password"]:
+            done = True
 
 def show_menu():
     print("1. New Password/ New Username\n"
@@ -39,7 +45,8 @@ def show_menu():
           "4. Add a new task to task list\n"
           "5. Mark task as completed\n"
           "6. Fight Boss\n"
-          "7. New Profile(reset stats)\n")
+          "7. New Profile(reset stats)\n"
+          "8. Buy Items")
     choice = int(input("Enter your choice: "))
     return choice
 
