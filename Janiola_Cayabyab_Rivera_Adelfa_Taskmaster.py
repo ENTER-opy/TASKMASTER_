@@ -42,23 +42,20 @@ try:
     def show_menu():
         global choice
         print("The choices are numbered as follows:")
-        typing_effect("1. New Password/ New Username\n"
-        "2. Save and Exit Game\n"
-        "3. View stats\n"
-        "4. Add a new task to task list\n"
-        "5. Mark task as completed\n"
-        "6. Fight Boss\n"
-        "7. New Profile(reset stats)\n"
-        "8. Buy Items\n"
-        "9. Quit and dont save\n".title())
+        print("1. New Password/ New Username\n"
+              "2. Save and Exit Game\n"
+              "3. View stats\n"
+              "4. Add a new task to task list\n"
+              "5. Mark task as completed\n"
+              "6. Fight Boss\n"
+              "7. New Profile(reset stats)\n"
+              "8. Buy Items"
+              "9. Quit and don't save".title())
         valid = False
-        while not valid:
-            try:
-                choice = int(input("Enter your choice: "))
-                if choice < 10 and choice > 0:
-                    valid = True
-            except TypeError:
-                print("Invalid choice. Please try again.")
+        try:
+            choice = int(input("Enter your choice: "))
+        except TypeError:
+            print("Invalid choice. Please try again.")
     #==If player wants to view stats, this will print them.==
     def view_stats():
         for player in data["player"]:
@@ -66,10 +63,11 @@ try:
             for i in player["tasks_to_do"]:
                 print(f"{i+1}: {player["tasks_to_do"][i]}")
             print(player["tasks_done"])
-    # buying of weapons
-    def buy_items(loadout):
-        bought_items = []
 
+    def buy_items():
+        bought_items = []
+        for items in data["items"]:
+            bought_items.append(items["title"])
 
     def add_task(task_to_add, task_list):
         typing_effect("===Welcome to Taskmaster's===")
@@ -107,9 +105,7 @@ try:
         valid = False
         try:
             chosen_weapon = int(input("Enter your chosen weapon: "))
-            if chosen_weapon <= len(weapons)-1:
-                print("")
-        except TypeError or IndexError:
+        except TypeError:
             print("Invalid choice. Please try again.")
 
     def enemy_choose_weapon():
@@ -169,11 +165,11 @@ try:
 
 
     #printing intro and instructions.
-    typing_effect("====<<<<WELCOME TO TASKMASTER!>>>>====\n")
-    typing_effect("A project by: Augusto Alfonso Cayabyab, Juan Miguel Rivera, and Gilian Uoiea Janiola!\n")
-    typing_effect("For starters, this is the whole point of taskmaster: ELIMINATE PROCRASTINATION!\n")
-    typing_effect("To use this, follow the given instructions.\n")
-    typing_effect("You will see a menu with 9 choices. Preferably, choose the New Profile or New username/password option to give yourself\n"
+    typing_effect("====<<<<WELCOME TO TASKMASTER!>>>>====")
+    typing_effect("A project by: Augusto Alfonso Cayabyab, Juan Miguel Rivera, and Gilian Uoiea Janiola!")
+    typing_effect("For starters, this is the whole point of taskmaster: ELIMINATE PROCRASTINATION!")
+    typing_effect("To use this, follow the given instructions.")
+    typing_effect("You will see a menu with 7 choices. Preferably, choose the New Profile or New username/password option to give yourself\n"
           "an identity. Now, choose Add a new task. This will aid you in completing tasks for gold. If you want to claim your reward \n"
           "after finishing a task, choose the Mark Task as Completed option. Great. You finished your first task. \n"
           "Now, you can buy items. Choose the Buy Items option. Buy ALL the items you need. Choose the Fight Boss option now.\n"
