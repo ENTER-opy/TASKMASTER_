@@ -64,16 +64,16 @@ def buy_items():
         bought_items.append(items["title"])
 
 def add_task(task_to_add, task_list):
-    print("===Welcome to Taskmaster's===")
-    print("===Task Addition Manager!===")
+    typing_effect("===Welcome to Taskmaster's===")
+    typing_effect("===Task Addition Manager!===")
     task_to_add = input("Enter your task to add: ")
     task_list.append(task_to_add)
     print(f"Task {task_to_add} added to task list!")
 
 def complete_task(task_to_complete, task_list):
     complete = False
-    print("===Welcome to Taskmaster's===")
-    print("===Task Completion Reward Manager!===")
+    typing_effect("===Welcome to Taskmaster's===")
+    typing_effect("===Task Completion Reward Manager!===")
     for item in task_list:
         print(f"{item+1}. {task_list[item]}")
     while not complete:
@@ -88,16 +88,26 @@ def complete_task(task_to_complete, task_list):
             print("Task number must be an integer!")
 
 
-def choose_weapon():
-    weapons = [data["items"]["swords"][data["player"]["level"]-1], data["items"]["bows"][data["player"]["level"]-1], data["items"]["swords"][data["player"]["level"]-1]]
-
+def choose_weapon(weapon_list):
+    global weapons
+    weapons = []
+    for w in weapon_list:
+        weapons.append(w["player"]["weapons_loadout"][w])
+    print("Your weapons are:")
+    for item in weapons:
+        print(f"{item+1}. {weapons[item]}")
+    valid = False
+    try:
+        chosen_weapon = int(input("Enter your chosen weapon: "))
+    except TypeError:
+        print("Invalid choice. Please try again.")
 
 def enemy_choose_weapon():
     pass
 
 
 def resolve_round(player_weapon, enemy_weapon):
-
+    pass
 
 
 def boss_round(data, level_number):
@@ -130,7 +140,7 @@ def pay_boss_cost(data, level_number):
 
 
 def give_boss_reward(data, level_number):
-    print(f"For defeating {data["bosses"][level_number]}, you get {} gold!")
+    print(f"For defeating {data["bosses"][level_number]}, you get {data["rewards"][level_number]} gold!")
 
 
 def rebirth_player(data):
