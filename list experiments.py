@@ -37,7 +37,6 @@ def sign_in():
         if userlogin == data[0]["player"] and passlogin == data[0]["player"]["password"]:
             print("Logged in! Enjoy the experience!")
             done = True
-            done = True
 #==printing menu and also choice picking option
 def show_menu():
     global choice
@@ -170,7 +169,7 @@ def check_true_ending(data):
 
 
 #printing intro and instructions.
-print("====<<<<WELCOME TO TASKMASTER!>>>>====")
+print("====<<<<WELCOME TO TASKMASTER!>>>>====\n")
 print("A project by: Augusto Alfonso Cayabyab, Juan Miguel Rivera, and Gilian Uoiea Janiola!\n")
 print("For starters, this is the whole point of taskmaster: ELIMINATE PROCRASTINATION!\n")
 typing_effect("To use this, follow the given instructions.\n")
