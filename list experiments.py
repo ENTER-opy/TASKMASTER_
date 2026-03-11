@@ -106,9 +106,9 @@ def choose_weapon(weapon_list):
 def enemy_choose_weapon(level_number):
     global eweapons
     eweapons = []
-    for w in damage:
+    for w in data["damage"]:
         eweapons.append(w["damage"][level_number][w])
-        chosen_weapon = random(3)
+        chosen_weapon = random.randint()
     pass
 
 
@@ -146,13 +146,13 @@ def pay_boss_cost():
 
 def level_up(xp_gain):
     data["player"].update({"xp": xp_gain})
-    if xp <= 150:
+    if data["player"]["xp"] <= 150:
         data["player"].update({"lv": 5})
-    elif xp <= 70:
+    elif data["player"]["xp"] <= 70:
         data["player"].update({"lv": 4})
-    elif xp <= 30:
+    elif data["player"]["xp"] <= 30:
         data["player"].update({"lv": 3})
-    elif xp <= 10:
+    elif data["player"]["xp"] <= 10:
         data["player"].update({"lv": 2})
     pass
 
