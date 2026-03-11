@@ -2,7 +2,7 @@
 import json
 import random
 import time
-from numpy import random
+import random
 #===============Functions for gameplay=============
 #==loading json file(with saved progress)==
 def load_game():
@@ -126,7 +126,7 @@ def boss_round(data, level_number):
         print("Here's how to fight the boss!")
 
 
-def can_fight_boss(data, level_number):
+def can_fight_boss(level_number):
     global cost
     cost = data["prices"]["bosses"][level_number]
     print(f"To fight the boss, you need at least {cost} gold as payment.")
@@ -138,13 +138,13 @@ def can_fight_boss(data, level_number):
         return None
 
 
-def pay_boss_cost(data, level_number):
-    if can_fight_boss():
+def pay_boss_cost():
+    if can_fight_boss(data["player"]["level"]-1):
         data["player"]["gold"] -= cost
         print(f"You have {data["player"]["gold"]} gold left.")
         print("Now, enter the boss arena!")
 
-def level_up(data, xp_gain):
+def level_up(xp_gain):
     data["player"].update({"xp": xp_gain})
     if xp <= 150:
         data["player"].update({"lv": 5})
@@ -165,14 +165,21 @@ def give_boss_reward(data, level_number):
 def rebirth_player(data):
     pass
 
-def check_true_ending(data):
-    pass
+def check_true_ending(level_number):
+    if level_number == 5:
+        typing_effect(f"You have come so far, {data["player"]["user"]}.")
+        time.sleep(0.5)
+        typing_effect("")
+
+    else:
+        pass
+
 
 
 #printing intro and instructions.
 print("====<<<<WELCOME TO TASKMASTER!>>>>====")
-print("A project by: Augusto Alfonso Cayabyab, Juan Miguel Rivera, and Gilian Uoiea Janiola!")
-print("For starters, this is the whole point of taskmaster: ELIMINATE PROCRASTINATION!")
+typing_effect("A project by: Augusto Alfonso Cayabyab, Juan Miguel Rivera, and Gilian Uoiea Janiola!")
+typing_effect("For starters, this is the whole point of taskmaster: ELIMINATE PROCRASTINATION!")
 typing_effect("To use this, follow the given instructions.")
 typing_effect("You will see a menu with 7 choices. Preferably, choose the New Profile or New username/password option to give yourself\n"
       "an identity. Now, choose Add a new task. This will aid you in completing tasks for gold. If you want to claim your reward \n"
