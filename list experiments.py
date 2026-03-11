@@ -171,9 +171,9 @@ def check_true_ending(data):
 
 #printing intro and instructions.
 print("====<<<<WELCOME TO TASKMASTER!>>>>====")
-print("A project by: Augusto Alfonso Cayabyab, Juan Miguel Rivera, and Gilian Uoiea Janiola!")
-print("For starters, this is the whole point of taskmaster: ELIMINATE PROCRASTINATION!")
-typing_effect("To use this, follow the given instructions.")
+print("A project by: Augusto Alfonso Cayabyab, Juan Miguel Rivera, and Gilian Uoiea Janiola!\n")
+print("For starters, this is the whole point of taskmaster: ELIMINATE PROCRASTINATION!\n")
+typing_effect("To use this, follow the given instructions.\n")
 typing_effect("You will see a menu with 7 choices. Preferably, choose the New Profile or New username/password option to give yourself\n"
       "an identity. Now, choose Add a new task. This will aid you in completing tasks for gold. If you want to claim your reward \n"
       "after finishing a task, choose the Mark Task as Completed option. Great. You finished your first task. \n"
