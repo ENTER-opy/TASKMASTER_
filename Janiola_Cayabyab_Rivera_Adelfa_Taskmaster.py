@@ -2,10 +2,13 @@ from json import JSONDecodeError  #importing libraties for functionalities.
 import json
 import random
 import time
+import msvcrt
+import keyboard
     #===============Functions for gameplay=============
 try:
     #==loading json file(with saved progress)==
     def load_game():
+        xp = 0
         global data
         with open("player.json", "r") as f:
             data = json.load(f)
@@ -34,13 +37,12 @@ try:
         while not done:
             userlogin = input("Enter your Hero Title: ")
             passlogin = input("Enter your Hero's Code (password): ")
-            if userlogin == data[0]["player"] and passlogin == data[0]["player"]["password"]:
+            if userlogin == data["player"]["user"] and passlogin == data[0]["player"]["password"]:
                 print("Logged in! Enjoy the experience!")
                 done = True
                 done = True
     #==printing menu and also choice picking option
     def show_menu():
-        global choice
         print("The choices are numbered as follows:")
         print("1. New Password/ New Username\n"
               "2. Save and Exit Game\n"
@@ -51,11 +53,7 @@ try:
               "7. New Profile(reset stats)\n"
               "8. Buy Items"
               "9. Quit and don't save".title())
-        valid = False
-        try:
-            choice = int(input("Enter your choice: "))
-        except TypeError:
-            print("Invalid choice. Please try again.")
+        print("Enter your choice:", end=" ")
     #==If player wants to view stats, this will print them.==
     def view_stats():
         for player in data["player"]:
@@ -123,7 +121,7 @@ try:
         time.sleep(1)
         print(f">>=={data["bosses"][level_number]}!==<<")
         if level_number == 1:
-            print("Here's how to fight the boss!")
+            typing_effect("Here's how you fight the boss!")
 
 
     def can_fight_boss(level_number):
@@ -139,7 +137,7 @@ try:
 
 
     def pay_boss_cost(level_number):
-        if can_fight_boss():
+        if can_fight_boss(data["player"]["level"]-1):
             data["player"]["gold"] -= cost
             print(f"You have {data["player"]["gold"]} gold left.")
             print("Now, enter the boss arena!")
@@ -165,15 +163,16 @@ try:
 
 
     #printing intro and instructions.
-    typing_effect("====<<<<WELCOME TO TASKMASTER!>>>>====")
-    typing_effect("A project by: Augusto Alfonso Cayabyab, Juan Miguel Rivera, and Gilian Uoiea Janiola!")
-    typing_effect("For starters, this is the whole point of taskmaster: ELIMINATE PROCRASTINATION!")
-    typing_effect("To use this, follow the given instructions.")
-    typing_effect("You will see a menu with 7 choices. Preferably, choose the New Profile or New username/password option to give yourself\n"
+    typing_effect("====<<<<WELCOME TO TASKMASTER!>>>>====\n")
+    typing_effect("A project by: Augusto Alfonso Cayabyab, Juan Miguel Rivera, and Gilian Uoiea Janiola!\n")
+    typing_effect("For starters, this is the whole point of taskmaster: ELIMINATE PROCRASTINATION!\n")
+    typing_effect("To use this, follow the given instructions.\n")
+    typing_effect("You will see a menu with 9 choices. Preferably, choose the New Profile or New username/password option to give yourself\n"
           "an identity. Now, choose Add a new task. This will aid you in completing tasks for gold. If you want to claim your reward \n"
           "after finishing a task, choose the Mark Task as Completed option. Great. You finished your first task. \n"
           "Now, you can buy items. Choose the Buy Items option. Buy ALL the items you need. Choose the Fight Boss option now.\n"
-          "I'll give you instructions on how to fight it when you get there.")
+          "I'll give you instructions on how to fight it when you get there.\n")
     show_menu()
+    key = keyboard.read_key()
 except FileNotFoundError:
-    print("No payer.json File Found!")
+    print("No player.json File Found!")

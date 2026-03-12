@@ -2,7 +2,7 @@
 import json
 import random
 import time
-from numpy import random
+import random
 #===============Functions for gameplay=============
 #==loading json file(with saved progress)==
 def load_game():
@@ -146,13 +146,13 @@ def pay_boss_cost(data, level_number):
 
 def level_up(data, xp_gain):
     data["player"].update({"xp": xp_gain})
-    if xp <= 150:
+    if data["player"]["xp"] <= 150:
         data["player"].update({"lv": 5})
-    elif xp <= 70:
+    elif data["player"]["xp"] <= 70:
         data["player"].update({"lv": 4})
-    elif xp <= 30:
+    elif data["player"]["xp"] <= 30:
         data["player"].update({"lv": 3})
-    elif xp <= 10:
+    elif data["player"]["xp"] <= 10:
         data["player"].update({"lv": 2})
     pass
 
@@ -170,10 +170,10 @@ def check_true_ending(data):
 
 
 #printing intro and instructions.
-print("====<<<<WELCOME TO TASKMASTER!>>>>====")
-print("A project by: Augusto Alfonso Cayabyab, Juan Miguel Rivera, and Gilian Uoiea Janiola!")
-print("For starters, this is the whole point of taskmaster: ELIMINATE PROCRASTINATION!")
-typing_effect("To use this, follow the given instructions.")
+print("====<<<<WELCOME TO TASKMASTER!>>>>====\n")
+print("A project by: Augusto Alfonso Cayabyab, Juan Miguel Rivera, and Gilian Uoiea Janiola!\n")
+print("For starters, this is the whole point of taskmaster: ELIMINATE PROCRASTINATION!\n")
+typing_effect("To use this, follow the given instructions.\n")
 typing_effect("You will see a menu with 7 choices. Preferably, choose the New Profile or New username/password option to give yourself\n"
       "an identity. Now, choose Add a new task. This will aid you in completing tasks for gold. If you want to claim your reward \n"
       "after finishing a task, choose the Mark Task as Completed option. Great. You finished your first task. \n"

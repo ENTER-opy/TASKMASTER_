@@ -1,5 +1,4 @@
-[{"player": {"user": "", "password": "", "tasks_to_do": [],"tasks_done": 0, "gold": 0,"level": 1, "hp": 100, "weapons_loadout": ["Bare Fists", "", ""], "reward_per_task": 5, "xp": 0, "lvl":1}
-},
+[{"player": {"user": "", "password": "", "tasks_to_do": [],"tasks_done": 0, "gold": 0,"level": 1, "hp": 100, "weapons_loadout": ["Bare Fists", "", ""], "reward_per_task": 5, "xp": 0, "lvl":1}},
   {"items": {"swords": ["The Mighty Stick", "The Rusted Blade, The Iron Sword","The Dragon's Blade"], "bows": ["The Mighty Slingshot", "The Crooked Bow", "The Deathly Sling", "The Pillager's Crossbow"], "shields": ["The Ceramic Plate", "The Great Stone Slab", "The Viking Shield", "Caesar's Shield"]}},
   {"prices": {"swords": [10,25,60,150], "bows": [10, 25, 50, 120], "shields": [15, 30, 55, 150], "bosses": [10, 50, 100, 200]}},
   {"damage": {"swords": [10, 35, 70, 170],"bows": [20, 30, 75, 180], "shields": [15, 25, 60, 170], "bosses":  [10, 20, 50, 150]}},
