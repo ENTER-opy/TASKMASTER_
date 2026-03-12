@@ -21,7 +21,7 @@ def save_game(data):
 def reset_game():
     with open("players.json", "r") as f:
         data = json.load(f)
-        data["player"] = {"user": "", "password": "", "tasks_to_do": [],"tasks_done": 0, "gold": 0,"level": 1, "hp": 100, "weapons_loadout": ["Bare Fists", "", ""]}
+        data["player"] = {"user": "", "password": "", "tasks_to_do": [],"tasks_done": 0, "gold": 0,"level": 1, "hp": 100,"xp": 0, "weapons_loadout": ["Bare Fists", "", ""]}
 #==new profile addition==
 def create_player():
     done = False
