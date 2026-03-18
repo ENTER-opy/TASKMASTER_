@@ -51,8 +51,8 @@ try:
               "5. Mark task as completed\n"
               "6. Fight Boss\n"
               "7. New Profile(reset stats)\n"
-              "8. Buy Items"
-              "9. Quit and don't save".title())
+              "8. Buy Items\n"
+              "9. Quit and dont save".title())
         print("Enter your choice:", end=" ")
     #==If player wants to view stats, this will print them.==
     def view_stats():
