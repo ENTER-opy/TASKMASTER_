@@ -3,7 +3,8 @@ import json
 import random
 import time
 import msvcrt
-import keyboard
+import ensurepip
+import
     #===============Functions for gameplay=============
 try:
     #==loading json file(with saved progress)==
