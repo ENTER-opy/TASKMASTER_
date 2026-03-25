@@ -44,50 +44,48 @@ try:
                 done = True
     #==printing menu and also choice picking option
     def show_menu():
+        global choice
+        print("The choices are numbered as follows:")
+        print("1. New Password/ New Username\n"
+              "2. Save and Exit Game\n"
+              "3. View stats\n"
+              "4. Add a new task to task list\n"
+              "5. Mark task as completed\n"
+              "6. Fight Boss\n"
+              "7. New Profile(reset stats)\n"
+              "8. Buy Items\n"
+              "9. Quit and dont save".title())
 
-        while True:
+        choice = print("Enter your choice:", end=" ")
 
-            print("The choices are numbered as follows:")
-            print("1. New Password/ New Username\n"
-                  "2. Save and Exit Game\n"
-                  "3. View stats\n"
-                  "4. Add a new task to task list\n"
-                  "5. Mark task as completed\n"
-                  "6. Fight Boss\n"
-                  "7. New Profile(reset stats)\n"
-                  "8. Buy Items\n"
-                  "9. Quit and dont save".title())
+        if choice == "1":
+            new_data(data["player"]["user"], data["player"][""])
 
-            choice = print("Enter your choice:", end=" ")
+        elif choice == "2":
+            print("2")
 
-            if choice == "1":
-                print("1")
+        elif choice == "3":
+            view_stats()
 
-            elif choice == "2":
-                print("2")
+        elif choice == "4":
+            add_task(data["player"]["tasks_to_do"])
 
-            elif choice == "3":
-                view_stats()
+        elif choice == "5":
+            complete_task(data["Player"]["tasks_to_do"])
 
-            elif choice == "4":
-                add_task(task_to_add, task_list)
+        elif choice == "6":
+            print("6")
 
-            elif choice == "5":
-                complete_task(task_to_complete, task_list)
+        elif choice == "7":
+            print("7")
 
-            elif choice == "6":
-                print("6")
+        elif choice == "8":
+            buy_items()
 
-            elif choice == "7":
-                print("7")
-
-            elif choice == "8":
-                buy_items()
-
-            elif choice == "9":
-                break
-            else:
-                print("INVALID INPUT ... TRY AGAIN")
+        elif choice == "9":
+            pass
+        else:
+            print("INVALID INPUT ... TRY AGAIN")
     def new_data(user, passw):
         user = input("Enter your new Hero Title: ")
     #==If player wants to view stats, this will print them.==
@@ -118,14 +116,14 @@ try:
         for items in data["items"]:
             bought_items.append(items["title"])
 
-    def add_task(task_to_add, task_list):
+    def add_task(task_list):
         typing_effect("===Welcome to Taskmaster's===")
         typing_effect("===Task Addition Manager!===")
         task_to_add = input("Enter your task to add: ")
         task_list.append(task_to_add)
         print(f"Task {task_to_add} added to task list!")
 
-    def complete_task(task_to_complete, task_list):
+    def complete_task(task_list):
         complete = False
         typing_effect("===Welcome to Taskmaster's===")
         typing_effect("===Task Completion Reward Manager!===")
@@ -167,7 +165,7 @@ try:
         pass
 
 
-    def boss_round(data, level_number):
+    def boss_round(level_number):
         global win
         win = False
         print(f"===Your Opponent is....===")
@@ -196,7 +194,7 @@ try:
             print("Now, enter the boss arena!")
 
 
-    def give_boss_reward(data, level_number):
+    def give_boss_reward(level_number):
         message = f"For defeating {data["bosses"][level_number]}, you get {data["rewards"][level_number]} gold!"
         typing_effect(message)
         data["player"]["gold"] += data["rewards"][level_number]
@@ -226,10 +224,8 @@ try:
               "after finishing a task, choose the Mark Task as Completed option. Great. You finished your first task. \n"
               "Now, you can buy items. Choose the Buy Items option. Buy ALL the items you need. Choose the Fight Boss option now.\n"
               "I'll give you instructions on how to fight it when you get there.\n")
-    show_menu()
-    if choice == "1":
+    done = False
+    while not done:
         show_menu()
-    elif choice == "2":
-        save_game()
 except FileNotFoundError:
     print("No player.json File Found!")
