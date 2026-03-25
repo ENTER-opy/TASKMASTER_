@@ -44,18 +44,50 @@ try:
                 done = True
     #==printing menu and also choice picking option
     def show_menu():
-        global choice
-        print("The choices are numbered as follows:")
-        print("1. New Password/ New Username\n"
-              "2. Save and Exit Game\n"
-              "3. View stats\n"
-              "4. Add a new task to task list\n"
-              "5. Mark task as completed\n"
-              "6. Fight Boss\n"
-              "7. New Profile(reset stats)\n"
-              "8. Buy Items\n"
-              "9. Quit and dont save".title())
-        choice = input("Enter choice: ")
+
+        while True:
+
+            print("The choices are numbered as follows:")
+            print("1. New Password/ New Username\n"
+                  "2. Save and Exit Game\n"
+                  "3. View stats\n"
+                  "4. Add a new task to task list\n"
+                  "5. Mark task as completed\n"
+                  "6. Fight Boss\n"
+                  "7. New Profile(reset stats)\n"
+                  "8. Buy Items\n"
+                  "9. Quit and dont save".title())
+
+            choice = print("Enter your choice:", end=" ")
+
+            if choice == "1":
+                print("1")
+
+            elif choice == "2":
+                print("2")
+
+            elif choice == "3":
+                view_stats()
+
+            elif choice == "4":
+                add_task(task_to_add, task_list)
+
+            elif choice == "5":
+                complete_task(task_to_complete, task_list)
+
+            elif choice == "6":
+                print("6")
+
+            elif choice == "7":
+                print("7")
+
+            elif choice == "8":
+                buy_items()
+
+            elif choice == "9":
+                break
+            else:
+                print("INVALID INPUT ... TRY AGAIN")
     def new_data(user, passw):
         user = input("Enter your new Hero Title: ")
     #==If player wants to view stats, this will print them.==
@@ -63,8 +95,23 @@ try:
         for player in data["player"]:
             print(player["username"])
             for i in player["tasks_to_do"]:
-                print(f"{i+1}: {player["tasks_to_do"][i]}")
+                print(f"{i + 1}: {player["tasks_to_do"][i]}")
             print(player["tasks_done"])
+
+        while True:
+            choice = input("Enter 0 to exit: ")
+            print(" ")
+
+            if choice == '0':
+                show_menu()
+            else:
+                print("INVALID INPUT")
+                time.sleep(0.1)
+                print(".")
+                time.sleep(0.2)
+                print("TRY AGAIN")
+                time.sleep(0.2)
+                print(" ")
 
     def buy_items():
         bought_items = []
