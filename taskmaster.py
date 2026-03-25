@@ -57,35 +57,6 @@ try:
               "9. Quit and dont save".title())
 
         choice = print("Enter your choice:", end=" ")
-
-        if choice == "1":
-            new_data(data["player"]["user"], data["player"][""])
-
-        elif choice == "2":
-            print("2")
-
-        elif choice == "3":
-            view_stats()
-
-        elif choice == "4":
-            add_task(data["player"]["tasks_to_do"])
-
-        elif choice == "5":
-            complete_task(data["Player"]["tasks_to_do"])
-
-        elif choice == "6":
-            print("6")
-
-        elif choice == "7":
-            print("7")
-
-        elif choice == "8":
-            buy_items()
-
-        elif choice == "9":
-            pass
-        else:
-            print("INVALID INPUT ... TRY AGAIN")
     def new_data(user, passw):
         user = input("Enter your new Hero Title: ")
     #==If player wants to view stats, this will print them.==
@@ -226,6 +197,33 @@ try:
               "I'll give you instructions on how to fight it when you get there.\n")
     done = False
     while not done:
-        show_menu()
+        if choice == "1":
+            new_data(data["player"]["user"], data["player"][""])
+
+        elif choice == "2":
+            print("2")
+
+        elif choice == "3":
+            view_stats()
+
+        elif choice == "4":
+            add_task(data["player"]["tasks_to_do"])
+
+        elif choice == "5":
+            complete_task(data["Player"]["tasks_to_do"])
+
+        elif choice == "6":
+            print("6")
+
+        elif choice == "7":
+            print("7")
+
+        elif choice == "8":
+            buy_items()
+
+        elif choice == "9":
+            done = True
+        else:
+            print("INVALID INPUT ... TRY AGAIN")
 except FileNotFoundError:
     print("No player.json File Found!")
