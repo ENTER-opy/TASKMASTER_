@@ -171,7 +171,7 @@ try:
     #printing intro and instructions.
     typing_effect("====<<<<WELCOME TO TASKMASTER!>>>>====\n")
     typing_effect("A project by: Augusto Alfonso Cayabyab, Juan Miguel Rivera, and Gilian Uoiea Janiola!\n")
-    if data["player"] == {"player": {"user": "", "password": "", "tasks_to_do": [],"tasks_done": 0, "gold": 0,"level": 1, "hp": 100, "weapons_loadout": ["Bare Fists", "", ""], "xp": 0, "lvl":1, "task_reward":  5}}
+    if data["player"] == {"player": {"user": "", "password": "", "tasks_to_do": [],"tasks_done": 0, "gold": 0,"level": 1, "hp": 100, "weapons_loadout": ["Bare Fists", "", ""], "xp": 0, "lvl":1, "task_reward":  5}}:
         typing_effect("For starters, this is the whole point of taskmaster: ELIMINATE PROCRASTINATION!\n")
         typing_effect("To use this, follow the given instructions.\n")
         typing_effect("You will see a menu with 9 choices. Preferably, choose the New Profile or New username/password option to give yourself\n"
