@@ -151,16 +151,16 @@ try:
 
 
 
-    def rebirth_player(data):
+    def rebirth_player():
         pass
 
 
-    def level_up(data):
+    def level_up():
         pass
 
 
-    def check_true_ending(data):
-        end = False
+    def check_true_ending():
+        pass
 
 
     #printing intro and instructions.
@@ -175,5 +175,7 @@ try:
           "I'll give you instructions on how to fight it when you get there.\n")
     show_menu()
     key = keyboard.read_key()
+    if key == "1":
+        show_menu()
 except FileNotFoundError:
     print("No player.json File Found!")
