@@ -1,4 +1,4 @@
-from json import JSONDecodeError  #importing libraties for functionalities.
+#importing libraties for functionalities.
 import json
 import random
 import time
@@ -187,14 +187,13 @@ try:
     #printing intro and instructions.
     typing_effect("====<<<<WELCOME TO TASKMASTER!>>>>====\n")
     typing_effect("A project by: Augusto Alfonso Cayabyab, Juan Miguel Rivera, and Gilian Uoiea Janiola!\n")
-    if data["player"] == {"player": {"user": "", "password": "", "tasks_to_do": [],"tasks_done": 0, "gold": 0,"level": 1, "hp": 100, "weapons_loadout": ["Bare Fists", "", ""], "xp": 0, "lvl":1, "task_reward":  5}}:
-        typing_effect("For starters, this is the whole point of taskmaster: ELIMINATE PROCRASTINATION!\n")
-        typing_effect("To use this, follow the given instructions.\n")
-        typing_effect("You will see a menu with 9 choices. Preferably, choose the New Profile or New username/password option to give yourself\n"
-              "an identity. Now, choose Add a new task. This will aid you in completing tasks for gold. If you want to claim your reward \n"
-              "after finishing a task, choose the Mark Task as Completed option. Great. You finished your first task. \n"
-              "Now, you can buy items. Choose the Buy Items option. Buy ALL the items you need. Choose the Fight Boss option now.\n"
-              "I'll give you instructions on how to fight it when you get there.\n")
+    typing_effect("For starters, this is the whole point of taskmaster: ELIMINATE PROCRASTINATION!\n")
+    typing_effect("To use this, follow the given instructions.\n")
+    typing_effect("You will see a menu with 9 choices. Preferably, choose the New Profile or New username/password option to give yourself\n"
+          "an identity. Now, choose Add a new task. This will aid you in completing tasks for gold. If you want to claim your reward \n"
+          "after finishing a task, choose the Mark Task as Completed option. Great. You finished your first task. \n"
+          "Now, you can buy items. Choose the Buy Items option. Buy ALL the items you need. Choose the Fight Boss option now.\n"
+          "I'll give you instructions on how to fight it when you get there.\n")
     done = False
     while not done:
         if choice == "1":
