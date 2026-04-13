@@ -54,7 +54,7 @@ try:
               "6. Fight Boss\n"
               "7. New Profile(reset stats)\n"
               "8. Buy Items\n"
-              "9. Quit and dont save".title())
+              "9. Delete Progress".title())
 
         choice = input("Enter your choice: ")
         done = False
@@ -175,6 +175,7 @@ try:
         print(f">>=={data["bosses"][level_number]}!==<<")
         if level_number == 1:
             typing_effect("Here's how you fight the boss!")
+            typing_effect("Pr")
 
 
     def can_fight_boss(level_number):
@@ -201,10 +202,13 @@ try:
         typing_effect(message)
         data["player"]["gold"] += data["rewards"][level_number]
 
-
+    def loss(level_number):
+        pass
 
     def rebirth_player():
-        pass
+        if data["player"]["lvl"] < 4:
+            typing_effect(f"The Land of Lyste is safe once again thanks to you, o great {data['player']['user']} the Taskmaster.")
+            typing_effect("Do you wish ")
 
 
     def level_up():
@@ -219,12 +223,14 @@ try:
     typing_effect("====<<<<WELCOME TO TASKMASTER!>>>>====\n")
     typing_effect("A project by: Augusto Alfonso Cayabyab, Juan Miguel Rivera, and Gilian Uoiea Janiola!\n")
     typing_effect("For starters, this is the whole point of taskmaster: ELIMINATE PROCRASTINATION!\n")
+    typing_effect("")
     typing_effect("To use this, follow the given instructions.\n")
     typing_effect("You will see a menu with 9 choices. Preferably, choose the New Profile or New username/password option to give yourself\n"
           "an identity. Now, choose Add a new task. This will aid you in completing tasks for gold. If you want to claim your reward \n"
           "after finishing a task, choose the Mark Task as Completed option. Great. You finished your first task. \n"
           "Now, you can buy items. Choose the Buy Items option. Buy ALL the items you need. Choose the Fight Boss option now.\n"
           "I'll give you instructions on how to fight it when you get there.\n")
+    intro = input("Skip intro?(yes/no): ")
 
 except FileNotFoundError:
     print("No player.json File Found!")
