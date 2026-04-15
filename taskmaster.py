@@ -205,18 +205,21 @@ try:
     def loss(level_number):
         pass
 
-    def rebirth_player():
-        if data["player"]["lvl"] < 4:
+    def rebirth_player(level):
+        if level <= 4:
             typing_effect(f"The Land of Lyste is safe once again thanks to you, o great {data['player']['user']} the Taskmaster.")
-            typing_effect("Do you wish ")
+            typing_effect("Do you wish to rebirth and start your journey anew?(yes/no): ")
+            level += 1
+
 
 
     def level_up():
         pass
 
 
-    def check_true_ending():
-        pass
+    def check_true_ending(level):
+        if level == 4:
+            print(f"Four times you have started your journey anew, and four times have you have fought {data[]}")
 
 
     #printing intro and instructions.
