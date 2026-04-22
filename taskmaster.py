@@ -160,12 +160,7 @@ try:
             print("Invalid choice. Please try again.")
 
     def enemy_choose_weapon():
-        pass
-
-
-    def resolve_round(player_weapon, enemy_weapon):
-        pass
-
+        print(random.randint(0,2))
 
     def boss_round(level_number):
         global win
@@ -212,14 +207,9 @@ try:
             level += 1
 
 
-
-    def level_up():
-        pass
-
-
     def check_true_ending(level):
         if level == 4:
-            print(f"Four times you have started your journey anew, and four times have you have fought {data[]}")
+            print(f"Four times you have started your journey anew, and four times have you have fought ")
 
 
     #printing intro and instructions.
@@ -234,6 +224,7 @@ try:
           "Now, you can buy items. Choose the Buy Items option. Buy ALL the items you need. Choose the Fight Boss option now.\n"
           "I'll give you instructions on how to fight it when you get there.\n")
     intro = input("Skip intro?(yes/no): ")
+    enemy_choose_weapon()
 
 except FileNotFoundError:
     print("No player.json File Found!")
