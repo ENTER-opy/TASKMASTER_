@@ -2,7 +2,10 @@
 import json
 import random
 import time
-    #===============Functions for gameplay=============
+import msvcrt
+from pydoc import browse
+
+#===============Functions for gameplay=============
 try:
     #==loading json file(with saved progress)==
     def load_game():
@@ -158,8 +161,34 @@ try:
         except TypeError:
             print("Invalid choice. Please try again.")
 
-    def enemy_choose_weapon():
-        print(random.randint(0,2))
+    def enemy_choose_weapon(chosen_weapon):
+        echoose = random.randint(0,2)
+        eweap = data["boss_items"][echoose]
+
+    def resolve_round(chosen_weapon, eweap, echoose):
+        if echoose==chosen_weapon:
+            print("Tie")
+        elif chosen_weapon-1 == "sword":
+            if eweap == "shield":
+                #deal damage to enemy
+                pass
+            elif eweap == "bow":
+                #do damage to player
+                pass
+        elif chosen_weapon-1 == "bow":
+            if eweap == "shield":
+                #do dmg to player
+                pass
+            elif eweap == "sword":
+                #do dmg to enemy
+                pass
+        elif chosen_weapon-1 == "shield"
+            if eweap == "bow":
+                #do dmg to enemy
+                pass
+            elif eweap == "sword":
+                #do dmg to player
+                pass
 
     def boss_round(level_number):
         global win
@@ -169,7 +198,7 @@ try:
         print(f">>=={data["bosses"][level_number]}!==<<")
         if level_number == 1:
             typing_effect("Here's how you fight the boss!")
-            typing_effect("")
+            typing_effect("Pr")
 
 
     def can_fight_boss(level_number):
@@ -208,8 +237,7 @@ try:
 
     def check_true_ending(level):
         if level == 4:
-            print(f"Four times you have started your journey anew, and four times have you have fought the enemy that plagued\n"
-                  f"these lands. You have now achieved something far greater than any mortal could have dreamed of")
+            print(f"Four times you have started your journey anew, and four times have you have fought ")
 
 
     #printing intro and instructions.
@@ -223,6 +251,8 @@ try:
           "after finishing a task, choose the Mark Task as Completed option. Great. You finished your first task. \n"
           "Now, you can buy items. Choose the Buy Items option. Buy ALL the items you need. Choose the Fight Boss option now.\n"
           "I'll give you instructions on how to fight it when you get there.\n")
+    intro = input("Skip intro?(yes/no): ")
+    enemy_choose_weapon()
 
 except FileNotFoundError:
     print("No player.json File Found!")

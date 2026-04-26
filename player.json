@@ -1,8 +1,8 @@
-[{"player": {"user": "", "password": "", "tasks_to_do": [],"tasks_done": 0, "gold": 0,"level": 1, "hp": 100, "weapons_loadout": ["Bare Fists", "Bare Fists", "Bare Fists"], "xp": 0, "lvl":1, "task_reward":  5}},
+[{"player": {"user": "", "password": "", "tasks_to_do": [],"tasks_done": 0, "gold": 0,"level": 1, "hp": 100, "weapons_loadout": {"sword":"Bare Fists", "bow":"Bare Fists", "shield":"Bare Fists"}, "xp": 0, "lvl":1, "task_reward":  5}},
   {"items": {"swords": ["The Mighty Stick", "The Rusted Blade, The Iron Sword","The Dragon's Blade"], "bows": ["The Mighty Slingshot", "The Crooked Bow", "The Pillager's Crossbow", "David's Sling"], "shields": ["The Ceramic Plate", "The Great Stone Slab", "The Viking Shield", "Caesar's Shield"]}},
   {"prices": {"swords": [10,25,60,150], "bows": [10, 25, 50, 120], "shields": [15, 30, 55, 150], "bosses": [15, 50, 100, 200]}},
   {"damage": {"swords": [10, 35, 70, 170],"bows": [20, 30, 75, 180], "shields": [15, 25, 60, 170]}},
   {"rewards": [10, 30, 70, 150]},
   {"bosses":  ["Pro","Procra", "Procra of Ashton", "Procra of Ashton Nation"], "boss_hp": [100, 200, 300, 350]},
-  {"boss_items":  ["Axe of Apokardiossi", "Infectious Ignorance", "Shield of Ego"],
+  {"boss_items":  {"sword":"Axe of Apokardiossi","bow":"Infectious Ignorance", "shield":"Shield of Ego"],
     "boss_damage": [[10, 20, 15]]}]
