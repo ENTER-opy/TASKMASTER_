@@ -2,7 +2,6 @@
 import json
 import random
 import time
-import msvcrt
     #===============Functions for gameplay=============
 try:
     #==loading json file(with saved progress)==
@@ -170,7 +169,7 @@ try:
         print(f">>=={data["bosses"][level_number]}!==<<")
         if level_number == 1:
             typing_effect("Here's how you fight the boss!")
-            typing_effect("Pr")
+            typing_effect("")
 
 
     def can_fight_boss(level_number):
@@ -209,7 +208,8 @@ try:
 
     def check_true_ending(level):
         if level == 4:
-            print(f"Four times you have started your journey anew, and four times have you have fought ")
+            print(f"Four times you have started your journey anew, and four times have you have fought the enemy that plagued\n"
+                  f"these lands. You have now achieved something far greater than any mortal could have dreamed of")
 
 
     #printing intro and instructions.
@@ -223,8 +223,6 @@ try:
           "after finishing a task, choose the Mark Task as Completed option. Great. You finished your first task. \n"
           "Now, you can buy items. Choose the Buy Items option. Buy ALL the items you need. Choose the Fight Boss option now.\n"
           "I'll give you instructions on how to fight it when you get there.\n")
-    intro = input("Skip intro?(yes/no): ")
-    enemy_choose_weapon()
 
 except FileNotFoundError:
     print("No player.json File Found!")
