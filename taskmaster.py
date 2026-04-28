@@ -2,10 +2,9 @@
 import json
 import random
 import time
-import msvcrt
-from pydoc import browse
-
 #===============Functions for gameplay=============
+data =  None
+shoplist = []
 try:
     #==loading json file(with saved progress)==
     def load_game():
@@ -46,7 +45,6 @@ try:
                 done = True
     #==printing menu and also choice picking option
     def show_menu():
-        global choice
         print("The choices are numbered as follows:")
         print("1. New Password/ New Username\n"
               "2. Save and Exit Game\n"
@@ -62,36 +60,44 @@ try:
         done = False
         while not done:
             if choice == "1":
-                new_data(data["player"]["user"], data["player"][""])
+                # appropriate functions
+                pass
 
             elif choice == "2":
-                print("2")
+                # appropriate functions
+                pass
 
             elif choice == "3":
-                view_stats()
+                # appropriate functions
+                pass
 
             elif choice == "4":
-                add_task(data["player"]["tasks_to_do"])
+                #appropriate functions
+                pass
 
             elif choice == "5":
-                complete_task(data["Player"]["tasks_to_do"])
+                #appropriate functions
+                pass
 
             elif choice == "6":
-                print("6")
+                # appropriate functions
+                pass
 
             elif choice == "7":
-                print("7")
+                # appropriate functions
+                pass
 
             elif choice == "8":
-                buy_items()
+                # appropriate functions
+                pass
 
             elif choice == "9":
-                done = True
-            else:
-                print("INVALID INPUT ... TRY AGAIN")
+                #appropriate functions
+                pass
             choice = input("Enter your choice: ")
     def new_data(user, passw):
         user = input("Enter your new Hero Title: ")
+        passw= input("Enter your new Hero's Code (password): ")
     #==If player wants to view stats, this will print them.==
     def view_stats():
         for player in data["player"]:
@@ -116,9 +122,11 @@ try:
                 print(" ")
 
     def buy_items():
-        bought_items = []
-        for items in data["items"]:
-            bought_items.append(items["title"])
+        global shoplist
+        shoplist = data["shop"]
+        typing_effect("==Welcome to Taskmaster's===")
+        typing_effect("==Weapons Shop!==")
+        print("=Available Items=")
 
     def add_task(task_list):
         typing_effect("===Welcome to Taskmaster's===")
@@ -136,7 +144,7 @@ try:
         while not complete:
             try:
                 task_to_complete = int(input("Enter your accomplished task(number): "))
-                if task_to_complete >= (len(task_list)+1):
+                if task_to_complete > (len(task_list)-1):
                     print("Invalid task. Please try again.")
                 else:
                     del task_list[task_to_complete]
@@ -147,7 +155,7 @@ try:
 
     def choose_weapon(weapon_list):
         global weapons
-        weapons = []
+        weapons = [data["player"]["weapons"]["sword"]]
         for w in weapon_list:
             weapons.append(weapon_list[w])
         print("Your weapons are:")
@@ -155,7 +163,7 @@ try:
             print(f"{item+1}. {weapons[item]}")
         valid = False
         try:
-            chosen_weapon = int(input("Enter your chosen weapon: "))
+            chosen_weapon = int(input("Enter your chosen weapon(number): "))
             if weapon_list[chosen_weapon - 1]==data["weapons"]["swords"][0]:
                 damage = data["damage"]
         except TypeError:
@@ -170,7 +178,7 @@ try:
             print("Tie")
         elif chosen_weapon-1 == "sword":
             if eweap == "shield":
-                #deal damage to enemy
+                #
                 pass
             elif eweap == "bow":
                 #do damage to player
@@ -182,7 +190,7 @@ try:
             elif eweap == "sword":
                 #do dmg to enemy
                 pass
-        elif chosen_weapon-1 == "shield"
+        elif chosen_weapon-1 == "shield":
             if eweap == "bow":
                 #do dmg to enemy
                 pass
@@ -232,14 +240,20 @@ try:
         if level <= 4:
             typing_effect(f"The Land of Lyste is safe once again thanks to you, o great {data['player']['user']} the Taskmaster.")
             typing_effect("Do you wish to rebirth and start your journey anew?(yes/no): ")
-            level += 1
+            rbirth = input().lower()
+            if rbirth == "yes":
+                level += 1
+            else:
+                typing_effect("You have chosen the wrong path.")
+                typing_effect("For this, you will suffer.")
+                reset_game()
 
 
     def check_true_ending(level):
         if level == 4:
-            print(f"Four times you have started your journey anew, and four times have you have fought ")
-
-
+            typing_effect(f"Four times you have started your journey anew,\nand four times have you have fought and brought down the very being that\nhas plagued these lands for several millenia.")
+            typing_effect(f"For your reward, {data["player"]["user"]}, you are now a Level 5 Hero,\n"
+                          f"one among few that have attained this level. ")
     #printing intro and instructions.
     typing_effect("====<<<<WELCOME TO TASKMASTER!>>>>====\n")
     typing_effect("A project by: Augusto Alfonso Cayabyab, Juan Miguel Rivera, and Gilian Uoiea Janiola!\n")
@@ -251,8 +265,5 @@ try:
           "after finishing a task, choose the Mark Task as Completed option. Great. You finished your first task. \n"
           "Now, you can buy items. Choose the Buy Items option. Buy ALL the items you need. Choose the Fight Boss option now.\n"
           "I'll give you instructions on how to fight it when you get there.\n")
-    intro = input("Skip intro?(yes/no): ")
-    enemy_choose_weapon()
-
 except FileNotFoundError:
     print("No player.json File Found!")
