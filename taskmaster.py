@@ -12,6 +12,7 @@ try:
         global data
         with open("player.json", "r") as f:
             data = json.load(f)
+        return data
     def typing_effect(text):
         for char in text:
             print(char, end="", flush=True)
@@ -22,10 +23,11 @@ try:
             json.dump(data, f, indent=4)
     #==resetting profile for restart==
     def reset_game():
+        global data
         with open("players.json", "r") as f:
             data = json.load(f)
             data["player"] = {"player": {"user": "", "password": "", "tasks_to_do": [],"tasks_done": 0, "gold": 0,"level": 1, "hp": 100, "weapons_loadout": ["Bare Fists", "", ""], "xp": 0, "lvl":1, "task_reward":  5}}
-            with open("players.json", "w") as f:
+            with open("players.json", "w") as fl:
                 json.dump(data, f, indent=4)
     #==new profile addition==
     def create_player():
