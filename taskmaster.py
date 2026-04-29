@@ -165,7 +165,7 @@ try:
         try:
             chosen_weapon = int(input("Enter your chosen weapon(number): "))
             if weapon_list[chosen_weapon - 1]==data["weapons"]["swords"][0]:
-                damage = data["damage"]
+                damage = data ["damage"]
         except TypeError:
             print("Invalid choice. Please try again.")
 
@@ -226,6 +226,9 @@ try:
             data["player"]["gold"] -= cost
             print(f"You have {data["player"]["gold"]} gold left.")
             print("Now, enter the boss arena!")
+            if level_number == 1:
+                typing_effect("Here's how you fight the boss!")
+                typing_effect("First, you have to pick a weapon from your loadout.")
 
 
     def give_boss_reward(level_number):
@@ -242,9 +245,14 @@ try:
             typing_effect("Do you wish to rebirth and start your journey anew?(yes/no): ")
             rbirth = input().lower()
             if rbirth == "yes":
+                if level == 4:
+                    check_true_ending(level)
                 level += 1
+                print("You are a brave soul, ")
             else:
                 typing_effect("You have chosen the wrong path.")
+                typing_effect("Are you so cowardly that you can't face what is there to come?")
+                typing_effect("Shame on you!")
                 typing_effect("For this, you will suffer.")
                 reset_game()
 
@@ -254,16 +262,19 @@ try:
             typing_effect(f"Four times you have started your journey anew,\nand four times have you have fought and brought down the very being that\nhas plagued these lands for several millenia.")
             typing_effect(f"For your reward, {data["player"]["user"]}, you are now a Level 5 Hero,\n"
                           f"one among few that have attained this level. ")
+            typing_effect(f"You may now rest, and prepare for your next journey.")
+            typing_effect(f"We, as the residents of the Land of Lyste, will honor you as our savior\n"
+                          f"until the end of time.")
     #printing intro and instructions.
     typing_effect("====<<<<WELCOME TO TASKMASTER!>>>>====\n")
     typing_effect("A project by: Augusto Alfonso Cayabyab, Juan Miguel Rivera, and Gilian Uoiea Janiola!\n")
-    typing_effect("For starters, this is the whole point of taskmaster: ELIMINATE PROCRASTINATION!\n")
-    typing_effect("")
-    typing_effect("To use this, follow the given instructions.\n")
-    typing_effect("You will see a menu with 9 choices. Preferably, choose the New Profile or New username/password option to give yourself\n"
-          "an identity. Now, choose Add a new task. This will aid you in completing tasks for gold. If you want to claim your reward \n"
-          "after finishing a task, choose the Mark Task as Completed option. Great. You finished your first task. \n"
-          "Now, you can buy items. Choose the Buy Items option. Buy ALL the items you need. Choose the Fight Boss option now.\n"
-          "I'll give you instructions on how to fight it when you get there.\n")
+    if data["player"]["level"] == 1:
+        typing_effect("For starters, this is the whole point of taskmaster: ELIMINATE PROCRASTINATION!\n")
+        typing_effect("To use this, follow the given instructions.\n")
+        typing_effect("You will see a menu with 9 choices. Preferably, choose the New Profile or New username/password option to give yourself\n"
+            "an identity. Now, choose Add a new task. This will aid you in completing tasks for gold. If you want to claim your reward \n"
+            "after finishing a task, choose the Mark Task as Completed option. Great. You finished your first task. \n"
+            "Now, you can buy items. Choose the Buy Items option. Buy ALL the items you need. Choose the Fight Boss option now.\n"
+            "I'll give you instructions on how to fight it when you get there.\n")
 except FileNotFoundError:
     print("No player.json File Found!")
