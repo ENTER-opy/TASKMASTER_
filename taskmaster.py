@@ -64,7 +64,8 @@ try:
                 new_data(data["player"]["user"], data["player"][""])
 
             elif choice == "2":
-                print("2")
+                print("Please Come Back.")
+                done = True
 
             elif choice == "3":
                 view_stats()
@@ -76,7 +77,10 @@ try:
                 complete_task(data["Player"]["tasks_to_do"])
 
             elif choice == "6":
-                print("6")
+                can_fight_boss(["player"]["level"])
+                pay_boss_cost()
+                boss_round()
+                resolve_round()
 
             elif choice == "7":
                 print("7")
@@ -165,29 +169,56 @@ try:
         eweap = data["boss_items"][echoose]
 
     def resolve_round(chosen_weapon, eweap, echoose):
-        if echoose==chosen_weapon:
-            print("Tie")
-        elif chosen_weapon-1 == "sword":
-            if eweap == "shield":
+      if data["boss_hp"] != 0:
+       if data["player"]["hp"] != 0:
+         if eweap != False:
+           if chosen_weapon != False:
+             if echoose==chosen_weapon:
+                 print("Tie")
+                 eweap = False
+                 chosen_weapon = False
+             elif chosen_weapon-1 == "sword":
+                if eweap == "shield":
                 #deal damage to enemy
-                pass
-            elif eweap == "bow":
+                    eweap = False
+                    chosen_weapon = False
+                    pass
+                elif eweap == "bow":
                 #do damage to player
-                pass
-        elif chosen_weapon-1 == "bow":
-            if eweap == "shield":
+                    eweap = False
+                    chosen_weapon = False
+                    pass
+             elif chosen_weapon-1 == "bow":
+                if eweap == "shield":
                 #do dmg to player
-                pass
-            elif eweap == "sword":
+                    eweap = False
+                    chosen_weapon = False
+                    pass
+                elif eweap == "sword":
                 #do dmg to enemy
-                pass
-        elif chosen_weapon-1 == "shield":
-            if eweap == "bow":
-                #do dmg to enemy
-                pass
-            elif eweap == "sword":
-                #do dmg to player
-                pass
+                    eweap = False
+                    chosen_weapon = False
+                    pass
+             elif chosen_weapon-1 == "shield":
+                if eweap == "bow":
+                    #do dmg to enemy
+                    eweap = False
+                    chosen_weapon = False
+                    pass
+                elif eweap == "sword":
+                    # do dmg to player
+                    eweap = False
+                    chosen_weapon = False
+                    pass
+           else:
+             choose_weapon(data["player"]["weapons_loadout"])
+         else:
+           enemy_choose_weapon()
+       else:
+         loss(data["player"]["level"])
+      else:
+          pass
+
 
     def boss_round(level_number):
         global win
@@ -251,7 +282,13 @@ try:
           "Now, you can buy items. Choose the Buy Items option. Buy ALL the items you need. Choose the Fight Boss option now.\n"
           "I'll give you instructions on how to fight it when you get there.\n")
     intro = input("Skip intro?(yes/no): ")
-    enemy_choose_weapon()
+    Yes=["yes", "y", "Yes", "YES", "Y"]
+    No= ["N", "n", "no", "NO", "N"]
+    if intro in Yes:
+        show_menu()
+    elif intro in No:
+        pass
+
 
 except FileNotFoundError:
     print("No player.json File Found!")
