@@ -2,9 +2,9 @@
 import json
 import random
 import time
+import msvcrt
+
 #===============Functions for gameplay=============
-data =  None
-shoplist = []
 try:
     #==loading json file(with saved progress)==
     def load_game():
@@ -12,7 +12,6 @@ try:
         global data
         with open("player.json", "r") as f:
             data = json.load(f)
-        return data
     def typing_effect(text):
         for char in text:
             print(char, end="", flush=True)
@@ -23,11 +22,10 @@ try:
             json.dump(data, f, indent=4)
     #==resetting profile for restart==
     def reset_game():
-        global data
         with open("players.json", "r") as f:
             data = json.load(f)
             data["player"] = {"player": {"user": "", "password": "", "tasks_to_do": [],"tasks_done": 0, "gold": 0,"level": 1, "hp": 100, "weapons_loadout": ["Bare Fists", "", ""], "xp": 0, "lvl":1, "task_reward":  5}}
-            with open("players.json", "w") as fl:
+            with open("players.json", "w") as f:
                 json.dump(data, f, indent=4)
     #==new profile addition==
     def create_player():
@@ -47,6 +45,7 @@ try:
                 done = True
     #==printing menu and also choice picking option
     def show_menu():
+        global choice
         print("The choices are numbered as follows:")
         print("1. New Password/ New Username\n"
               "2. Save and Exit Game\n"
@@ -62,44 +61,36 @@ try:
         done = False
         while not done:
             if choice == "1":
-                # appropriate functions
-                pass
+                new_data(data["player"]["user"], data["player"][""])
 
             elif choice == "2":
-                # appropriate functions
-                pass
+                print("2")
 
             elif choice == "3":
-                # appropriate functions
-                pass
+                view_stats()
 
             elif choice == "4":
-                #appropriate functions
-                pass
+                add_task(data["player"]["tasks_to_do"])
 
             elif choice == "5":
-                #appropriate functions
-                pass
+                complete_task(data["Player"]["tasks_to_do"])
 
             elif choice == "6":
-                # appropriate functions
-                pass
+                print("6")
 
             elif choice == "7":
-                # appropriate functions
-                pass
+                print("7")
 
             elif choice == "8":
-                # appropriate functions
-                pass
+                buy_items()
 
             elif choice == "9":
-                #appropriate functions
-                pass
+                done = True
+            else:
+                print("INVALID INPUT ... TRY AGAIN")
             choice = input("Enter your choice: ")
     def new_data(user, passw):
         user = input("Enter your new Hero Title: ")
-        passw= input("Enter your new Hero's Code (password): ")
     #==If player wants to view stats, this will print them.==
     def view_stats():
         for player in data["player"]:
@@ -124,11 +115,9 @@ try:
                 print(" ")
 
     def buy_items():
-        global shoplist
-        shoplist = data["shop"]
-        typing_effect("==Welcome to Taskmaster's===")
-        typing_effect("==Weapons Shop!==")
-        print("=Available Items=")
+        bought_items = []
+        for items in data["items"]:
+            bought_items.append(items["title"])
 
     def add_task(task_list):
         typing_effect("===Welcome to Taskmaster's===")
@@ -146,7 +135,7 @@ try:
         while not complete:
             try:
                 task_to_complete = int(input("Enter your accomplished task(number): "))
-                if task_to_complete > (len(task_list)-1):
+                if task_to_complete >= (len(task_list)+1):
                     print("Invalid task. Please try again.")
                 else:
                     del task_list[task_to_complete]
@@ -157,7 +146,7 @@ try:
 
     def choose_weapon(weapon_list):
         global weapons
-        weapons = [data["player"]["weapons"]["sword"]]
+        weapons = []
         for w in weapon_list:
             weapons.append(weapon_list[w])
         print("Your weapons are:")
@@ -165,9 +154,9 @@ try:
             print(f"{item+1}. {weapons[item]}")
         valid = False
         try:
-            chosen_weapon = int(input("Enter your chosen weapon(number): "))
+            chosen_weapon = int(input("Enter your chosen weapon: "))
             if weapon_list[chosen_weapon - 1]==data["weapons"]["swords"][0]:
-                damage = data ["damage"]
+                damage = data["damage"]
         except TypeError:
             print("Invalid choice. Please try again.")
 
@@ -180,7 +169,7 @@ try:
             print("Tie")
         elif chosen_weapon-1 == "sword":
             if eweap == "shield":
-                #
+                #deal damage to enemy
                 pass
             elif eweap == "bow":
                 #do damage to player
@@ -228,9 +217,6 @@ try:
             data["player"]["gold"] -= cost
             print(f"You have {data["player"]["gold"]} gold left.")
             print("Now, enter the boss arena!")
-            if level_number == 1:
-                typing_effect("Here's how you fight the boss!")
-                typing_effect("First, you have to pick a weapon from your loadout.")
 
 
     def give_boss_reward(level_number):
@@ -245,38 +231,27 @@ try:
         if level <= 4:
             typing_effect(f"The Land of Lyste is safe once again thanks to you, o great {data['player']['user']} the Taskmaster.")
             typing_effect("Do you wish to rebirth and start your journey anew?(yes/no): ")
-            rbirth = input().lower()
-            if rbirth == "yes":
-                if level == 4:
-                    check_true_ending(level)
-                level += 1
-                print("You are a brave soul, ")
-            else:
-                typing_effect("You have chosen the wrong path.")
-                typing_effect("Are you so cowardly that you can't face what is there to come?")
-                typing_effect("Shame on you!")
-                typing_effect("For this, you will suffer.")
-                reset_game()
+            level += 1
 
 
     def check_true_ending(level):
         if level == 4:
-            typing_effect(f"Four times you have started your journey anew,\nand four times have you have fought and brought down the very being that\nhas plagued these lands for several millenia.")
-            typing_effect(f"For your reward, {data["player"]["user"]}, you are now a Level 5 Hero,\n"
-                          f"one among few that have attained this level. ")
-            typing_effect(f"You may now rest, and prepare for your next journey.")
-            typing_effect(f"We, as the residents of the Land of Lyste, will honor you as our savior\n"
-                          f"until the end of time.")
+            print(f"Four times you have started your journey anew, and four times have you have fought ")
+
+
     #printing intro and instructions.
     typing_effect("====<<<<WELCOME TO TASKMASTER!>>>>====\n")
     typing_effect("A project by: Augusto Alfonso Cayabyab, Juan Miguel Rivera, and Gilian Uoiea Janiola!\n")
-    if data["player"]["level"] == 1:
-        typing_effect("For starters, this is the whole point of taskmaster: ELIMINATE PROCRASTINATION!\n")
-        typing_effect("To use this, follow the given instructions.\n")
-        typing_effect("You will see a menu with 9 choices. Preferably, choose the New Profile or New username/password option to give yourself\n"
-            "an identity. Now, choose Add a new task. This will aid you in completing tasks for gold. If you want to claim your reward \n"
-            "after finishing a task, choose the Mark Task as Completed option. Great. You finished your first task. \n"
-            "Now, you can buy items. Choose the Buy Items option. Buy ALL the items you need. Choose the Fight Boss option now.\n"
-            "I'll give you instructions on how to fight it when you get there.\n")
+    typing_effect("For starters, this is the whole point of taskmaster: ELIMINATE PROCRASTINATION!\n")
+    typing_effect("")
+    typing_effect("To use this, follow the given instructions.\n")
+    typing_effect("You will see a menu with 9 choices. Preferably, choose the New Profile or New username/password option to give yourself\n"
+          "an identity. Now, choose Add a new task. This will aid you in completing tasks for gold. If you want to claim your reward \n"
+          "after finishing a task, choose the Mark Task as Completed option. Great. You finished your first task. \n"
+          "Now, you can buy items. Choose the Buy Items option. Buy ALL the items you need. Choose the Fight Boss option now.\n"
+          "I'll give you instructions on how to fight it when you get there.\n")
+    intro = input("Skip intro?(yes/no): ")
+    enemy_choose_weapon()
+
 except FileNotFoundError:
     print("No player.json File Found!")
