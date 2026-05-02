@@ -2,8 +2,6 @@
 import json
 import random
 import time
-import msvcrt
-
 #===============Functions for gameplay=============
 try:
     #==loading json file(with saved progress)==
@@ -61,7 +59,7 @@ try:
         done = False
         while not done:
             if choice == "1":
-                new_data(data["player"]["user"], data["player"][""])
+                new_data(data["player"]["user"], data["player"]["password"])
 
             elif choice == "2":
                 print("Please Come Back.")
@@ -77,7 +75,7 @@ try:
                 complete_task(data["Player"]["tasks_to_do"])
 
             elif choice == "6":
-                can_fight_boss(["player"]["level"])
+                can_fight_boss(data["player"]["level"])
                 pay_boss_cost()
                 boss_round()
                 resolve_round()
@@ -256,7 +254,9 @@ try:
         data["player"]["gold"] += data["rewards"][level_number]
 
     def loss(level_number):
-        pass
+        messages = ["It is too early for death.", "Save us!", "We NEED you.", "FIGHT FOR THE LAND OF LYSTE!", "Prove yourself to him.", f"{data["bosses"][["player"]["level"]- 1]} is waiting for you."]
+        messages2 = ["Get Up.", ""]
+        message = random.choice
 
     def rebirth_player(level):
         if level <= 4:
@@ -271,23 +271,23 @@ try:
 
 
     #printing intro and instructions.
-    typing_effect("====<<<<WELCOME TO TASKMASTER!>>>>====\n")
-    typing_effect("A project by: Augusto Alfonso Cayabyab, Juan Miguel Rivera, and Gilian Uoiea Janiola!\n")
-    typing_effect("For starters, this is the whole point of taskmaster: ELIMINATE PROCRASTINATION!\n")
-    typing_effect("")
-    typing_effect("To use this, follow the given instructions.\n")
-    typing_effect("You will see a menu with 9 choices. Preferably, choose the New Profile or New username/password option to give yourself\n"
-          "an identity. Now, choose Add a new task. This will aid you in completing tasks for gold. If you want to claim your reward \n"
-          "after finishing a task, choose the Mark Task as Completed option. Great. You finished your first task. \n"
-          "Now, you can buy items. Choose the Buy Items option. Buy ALL the items you need. Choose the Fight Boss option now.\n"
-          "I'll give you instructions on how to fight it when you get there.\n")
     intro = input("Skip intro?(yes/no): ")
     Yes=["yes", "y", "Yes", "YES", "Y"]
     No= ["N", "n", "no", "NO", "N"]
     if intro in Yes:
         show_menu()
     elif intro in No:
-        pass
+        typing_effect("====<<<<WELCOME TO TASKMASTER!>>>>====\n")
+        typing_effect("A project by: Augusto Alfonso Cayabyab, Juan Miguel Rivera, and Gilian Uoiea Janiola!\n")
+        typing_effect("For starters, this is the whole point of taskmaster: ELIMINATE PROCRASTINATION!\n")
+        typing_effect("")
+        typing_effect("To use this, follow the given instructions.\n")
+        typing_effect("You will see a menu with 9 choices. Preferably, choose the New Profile or New username/password option to give yourself\n"
+            "an identity. Now, choose Add a new task. This will aid you in completing tasks for gold. If you want to claim your reward \n"
+            "after finishing a task, choose the Mark Task as Completed option. Great. You finished your first task. \n"
+            "Now, you can buy items. Choose the Buy Items option. Buy ALL the items you need. Choose the Fight Boss option now.\n"
+            "I'll give you instructions on how to fight it when you get there.\n")
+        show_menu()
 
 
 except FileNotFoundError:

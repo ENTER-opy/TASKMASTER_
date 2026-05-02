@@ -5,5 +5,5 @@
   {"damage": {"swords": [10, 35, 70, 170],"bows": [20, 30, 75, 180], "shields": [15, 25, 60, 170]}},
   {"rewards": [10, 30, 70, 150]},
   {"bosses":  ["Pro","Procra", "Procra of Ashton", "Procra of Ashton Nation"], "boss_hp": [100, 200, 300, 350]},
-  {"boss_items":  {"sword":"Axe of Apokardiossi","bow":"Infectious Ignorance", "shield":"Shield of Ego"},
-    "boss_damage": [[10, 20, 15]]}]
+  {"boss_items":  {"sword":"Axe of Apokardiossi","bow":"Infectious Ignorance", "shield":"Shield of Ego"}},
+  {"boss_damage": [[10,20,15]]}]
