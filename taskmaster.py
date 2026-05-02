@@ -7,9 +7,9 @@ try:
     #==loading json file(with saved progress)==
     def load_game():
         xp = 0
-        global data
         with open("player.json", "r") as f:
             data = json.load(f)
+            return data
     def typing_effect(text):
         for char in text:
             print(char, end="", flush=True)
@@ -17,7 +17,7 @@ try:
     #==saving game for progress saving==
     def save_game():
         with open("players.json", "w") as f:
-            json.dump(data, f, indent=4)
+            json.dump(load_game(), f, indent=4)
     #==resetting profile for restart==
     def reset_game():
         with open("players.json", "r") as f:
@@ -29,15 +29,15 @@ try:
     def create_player():
         done = False
         while not done:
-            data["player"]["username"] = input("Enter your preferred Hero Title: ")
-            data["player"]["password"] = input("Enter your preferred Hero's Code (password): ")
+            load_game()["player"]["username"] = input("Enter your preferred Hero Title: ")
+            load_game()["player"]["password"] = input("Enter your preferred Hero's Code (password): ")
     #==login for security purposes==
     def sign_in():
         done = False
         while not done:
             userlogin = input("Enter your Hero Title: ")
             passlogin = input("Enter your Hero's Code (password): ")
-            if userlogin == data["player"]["user"] and passlogin == data[0]["player"]["password"]:
+            if userlogin == load_game()["player"]["user"] and passlogin == load_game()[0]["player"]["password"]:
                 print("Logged in! Enjoy the experience!")
                 done = True
                 done = True
@@ -59,7 +59,7 @@ try:
         done = False
         while not done:
             if choice == "1":
-                new_data(data["player"]["user"], data["player"]["password"])
+                new_data(load_game()["player"]["user"], load_game()["player"]["password"])
 
             elif choice == "2":
                 print("Please Come Back.")
@@ -69,13 +69,13 @@ try:
                 view_stats()
 
             elif choice == "4":
-                add_task(data["player"]["tasks_to_do"])
+                add_task(load_game()["player"]["tasks_to_do"])
 
             elif choice == "5":
-                complete_task(data["Player"]["tasks_to_do"])
+                complete_task(load_game()["Player"]["tasks_to_do"])
 
             elif choice == "6":
-                can_fight_boss(data["player"]["level"])
+                can_fight_boss(load_game()["player"]["level"])
                 pay_boss_cost()
                 boss_round()
                 resolve_round()
@@ -95,7 +95,7 @@ try:
         user = input("Enter your new Hero Title: ")
     #==If player wants to view stats, this will print them.==
     def view_stats():
-        for player in data["player"]:
+        for player in load_game()["player"]:
             print(player["username"])
             for i in player["tasks_to_do"]:
                 print(f"{i + 1}: {player["tasks_to_do"][i]}")
@@ -118,7 +118,7 @@ try:
 
     def buy_items():
         bought_items = []
-        for items in data["items"]:
+        for items in load_game()["items"]:
             bought_items.append(items["title"])
 
     def add_task(task_list):
@@ -157,18 +157,18 @@ try:
         valid = False
         try:
             chosen_weapon = int(input("Enter your chosen weapon: "))
-            if weapon_list[chosen_weapon - 1]==data["weapons"]["swords"][0]:
-                damage = data["damage"]
+            if weapon_list[chosen_weapon - 1]==load_game()["weapons"]["swords"][0]:
+                damage = load_game()["damage"]
         except TypeError:
             print("Invalid choice. Please try again.")
 
     def enemy_choose_weapon(chosen_weapon):
         echoose = random.randint(0,2)
-        eweap = data["boss_items"][echoose]
+        eweap = load_game()["boss_items"][echoose]
 
     def resolve_round(chosen_weapon, eweap, echoose):
-      if data["boss_hp"] != 0:
-       if data["player"]["hp"] != 0:
+      if load_game()["boss_hp"] != 0:
+       if load_game()["player"]["hp"] != 0:
          if eweap != False:
            if chosen_weapon != False:
              if echoose==chosen_weapon:
@@ -209,11 +209,11 @@ try:
                     chosen_weapon = False
                     pass
            else:
-             choose_weapon(data["player"]["weapons_loadout"])
+             choose_weapon(load_game()["player"]["weapons_loadout"])
          else:
            enemy_choose_weapon()
        else:
-         loss(data["player"]["level"])
+         loss(load_game()["player"]["level"])
       else:
           pass
 
@@ -223,7 +223,7 @@ try:
         win = False
         print(f"===Your Opponent is....===")
         time.sleep(1)
-        print(f">>=={data["bosses"][level_number]}!==<<")
+        print(f">>=={load_game()["bosses"][level_number]}!==<<")
         if level_number == 1:
             typing_effect("Here's how you fight the boss!")
             typing_effect("Pr")
@@ -231,9 +231,9 @@ try:
 
     def can_fight_boss(level_number):
         global cost
-        cost = data["prices"]["bosses"][level_number]
+        cost = load_game()["prices"]["bosses"][level_number]
         print(f"To fight the boss, you need at least {cost} gold as payment.")
-        if data["player"]["gold"] >= cost:
+        if load_game()["player"]["gold"] >= cost:
             print("Ok, you can fight the boss!")
             return True
         else:
@@ -242,25 +242,25 @@ try:
 
 
     def pay_boss_cost(level_number):
-        if can_fight_boss(data["player"]["level"]-1):
-            data["player"]["gold"] -= cost
-            print(f"You have {data["player"]["gold"]} gold left.")
+        if can_fight_boss(load_game()["player"]["level"]-1):
+            level_number["player"]["gold"] -= cost
+            print(f"You have {level_number["player"]["gold"]} gold left.")
             print("Now, enter the boss arena!")
 
 
     def give_boss_reward(level_number):
-        message = f"For defeating {data["bosses"][level_number]}, you get {data["rewards"][level_number]} gold!"
+        message = f"For defeating {level_number["bosses"][level_number]}, you get {level_number["rewards"][level_number]} gold!"
         typing_effect(message)
-        data["player"]["gold"] += data["rewards"][level_number]
+        load_game()["player"]["gold"] += load_game()["rewards"][level_number]
 
     def loss(level_number):
-        messages = ["It is too early for death.", "Save us!", "We NEED you.", "FIGHT FOR THE LAND OF LYSTE!", "Prove yourself to him.", f"{data["bosses"][["player"]["level"]- 1]} is waiting for you."]
-        messages2 = ["Get Up.", ""]
+        messages = ["It is too early for death.", "Save us!", "We NEED you.", "FIGHT FOR THE LAND OF LYSTE!", "Prove yourself to him.", f"{load_game()["bosses"][level_number]} is waiting for you."]
+        messages2 = ["Get Up.", "Wake Up.", ""]
         message = random.choice
 
     def rebirth_player(level):
         if level <= 4:
-            typing_effect(f"The Land of Lyste is safe once again thanks to you, o great {data['player']['user']} the Taskmaster.")
+            typing_effect(f"The Land of Lyste is safe once again thanks to you, o great {load_game()['player']['user']} the Taskmaster.")
             typing_effect("Do you wish to rebirth and start your journey anew?(yes/no): ")
             level += 1
 
