@@ -67,6 +67,7 @@ try:
                 save_game()
                 print("Please Come Back.")
                 done = True
+                return done
 
             elif choice == "3":
                 view_stats()
@@ -79,14 +80,10 @@ try:
 
             elif choice == "6":
                 can_fight_boss(data[0]["player"]["level"])
-                pay_boss_cost(data[0]["player"]["level"])
-                boss_round(data[0]["player"]["level"])
-                while data[6]["boss_hp"][data[0]["player"]["level"]] != 0:
-                    while data[0]["player"]["hp"] != 0:
-                        resolve_round(choose_weapon(data[0]["player"]["weapons_loadout"]), enemy_choose_weapon(), enemy_choose_weapon())
 
             elif choice == "7":
-                print("7")
+                reset_game()
+                print("Returning to square 0:")
 
             elif choice == "8":
                 buy_items()
@@ -141,18 +138,19 @@ try:
 
     def add_task(task_list):
         typing_effect("===Welcome to Taskmaster's===")
-        typing_effect("===Task Addition Manager!===")
-        task_to_add = input("Enter your task to add: ")
+        typing_effect("\n===Task Addition Manager!===")
+        task_to_add = input("\nEnter your task to add: ")
         task_list.append(task_to_add)
         print(f"Task {task_to_add} added to task list!")
+        show_menu()
 
     def complete_task(task_list):
         complete = False
         typing_effect("===Welcome to Taskmaster's===")
-        typing_effect("===Task Completion Reward Manager!===")
-        for item in task_list:
-            print(f"{item+1}. {task_list[item]}")
-        print(f"13. Exit")
+        typing_effect("\n===Task Completion Reward Manager!===")
+        for i, v in enumerate(task_list):
+            print(f"{i}. {v}")
+        print(f"\n13. Exit")
         while not complete:
             try:
                 task_to_complete = int(input("Enter your accomplished task(number): "))
@@ -169,6 +167,7 @@ try:
             data[0]["player"]["tasks_done"] + 1
             data[0]["player"]["gold"] + data[0]["player"]["task_reward"]
             complete = not complete
+            show_menu()
 
 
     def choose_weapon(weapon_list):
@@ -198,54 +197,54 @@ try:
 
     def resolve_round(chosen_weapon, eweap, echoose):
       if data[6]["boss_hp"][data[0]["player"]["level"]] != 0:
-       if data[0]["player"]["hp"] != 0:
-         if eweap != False:
-           if chosen_weapon != False:
-             if echoose==chosen_weapon:
-                 print("Tie")
-                 eweap = False
-                 chosen_weapon = False
-             elif chosen_weapon-1 == 0:
-                if eweap == "shield":
-                #deal damage to enemy
-                    eweap = False
-                    chosen_weapon = False
-                    pass
-                elif eweap == "bow":
-                #do damage to player
-                    eweap = False
-                    chosen_weapon = False
-                    pass
-             elif chosen_weapon-1 == 1:
-                if eweap == "shield":
-                #do dmg to player
-                    eweap = False
-                    chosen_weapon = False
-                    pass
-                elif eweap == "sword":
-                #do dmg to enemy
-                    eweap = False
-                    chosen_weapon = False
-                    pass
-             elif chosen_weapon-1 == 3:
-                if eweap == "bow":
-                    #do dmg to enemy
-                    eweap = False
-                    chosen_weapon = False
-                    pass
-                elif eweap == "sword":
-                    # do dmg to player
-                    eweap = False
-                    chosen_weapon = False
-                    pass
-           else:
-             choose_weapon(data[0]["player"]["weapons_loadout"])
-         else:
-           enemy_choose_weapon()
-       else:
-         loss(data[0]["player"]["level"])
+        if data[0]["player"]["hp"] != 0:
+          if eweap == True:
+            if chosen_weapon == True:
+              if echoose==chosen_weapon:
+                  print("Tie")
+                  eweap = False
+                  chosen_weapon = False
+              elif chosen_weapon-1 == 0:
+                 if eweap == "shield":
+                 #deal damage to enemy
+                     eweap = False
+                     chosen_weapon = False
+                     pass
+                 elif eweap == "bow":
+                 #do damage to player
+                     eweap = False
+                     chosen_weapon = False
+                     pass
+              elif chosen_weapon-1 == 1:
+                 if eweap == "shield":
+                 #do dmg to player
+                     eweap = False
+                     chosen_weapon = False
+                     pass
+                 elif eweap == "sword":
+                 #do dmg to enemy
+                     eweap = False
+                     chosen_weapon = False
+                     pass
+              elif chosen_weapon-1 == 3:
+                 if eweap == "bow":
+                     #do dmg to enemy
+                     eweap = False
+                     chosen_weapon = False
+                     pass
+                 elif eweap == "sword":
+                     # do dmg to player
+                     eweap = False
+                     chosen_weapon = False
+                     pass
+            else:
+              choose_weapon(data[0]["player"]["weapons_loadout"])
+          else:
+            enemy_choose_weapon()
+        else:
+          loss(data[0]["player"]["level"])
       else:
-          pass
+        pass
 
 
     def boss_round(level_number):
@@ -255,8 +254,11 @@ try:
         time.sleep(1)
         print(f">>=={data[6]["bosses"][level_number]}!==<<")
         if level_number == 1:
-            typing_effect("Here's how you fight the boss!")
+            typing_effect("Here's how you fight the boss!\n Simply select a weapon, and see how the wheel of fate turns.\n Sword beats Shield, Sheild Beats bow, and Bow beats Sword.")
             typing_effect("Pr")
+        while data[6]["boss_hp"][data[0]["player"]["level"]] != 0:
+            while data[0]["player"]["hp"] != 0:
+                resolve_round(choose_weapon(data[0]["player"]["weapons_loadout"]), enemy_choose_weapon(),enemy_choose_weapon())
 
 
     def can_fight_boss(level_number):
@@ -266,9 +268,11 @@ try:
         print(f"To fight the boss, you need at least {cost} gold as payment.")
         if data[0]["player"]["gold"] >= cost:
             print("Ok, you can fight the boss!")
+            pay_boss_cost(data[0]["player"]["level"])
             return True
         else:
             print("You can't fight the boss! Grind some more tasks!")
+            show_menu()
             return None
 
 
@@ -277,6 +281,7 @@ try:
             level_number["player"]["gold"] -= cost
             print(f"You have {level_number["player"]["gold"]} gold left.")
             print("Now, enter the boss arena!")
+            boss_round(data[0]["player"]["level"])
 
 
     def give_boss_reward(level_number):
@@ -285,7 +290,7 @@ try:
         data["player"]["gold"] += data["rewards"][level_number]
 
     def loss():
-        messages = ["It is too early for death.", "Save us!", "We NEED you.", "FIGHT FOR THE LAND OF LYSTE!", "Prove yourself to him.", f"{data["bosses"][level_number]} is waiting for you."]
+        messages = ["It is too early for death.", "Save us!", "We NEED you.", "FIGHT FOR THE LAND OF LYSTE!", "Prove yourself to him.", f"{data[6]["bosses"][data[0]['player']['level']]} is waiting for you."]
         messages2 = ["Get Up.", "Wake Up.", ""]
         message = random.choice(messages)
         message2 = random.choice(messages2)
