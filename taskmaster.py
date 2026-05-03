@@ -61,9 +61,10 @@ try:
         done = False
         while not done:
             if choice == "1":
-                new_data(data["player"]["user"], data["player"]["password"])
+                new_data(data[0]["player"]["user"], data[0]["player"]["password"])
 
             elif choice == "2":
+                save_game()
                 print("Please Come Back.")
                 done = True
 
@@ -71,10 +72,10 @@ try:
                 view_stats()
 
             elif choice == "4":
-                add_task(data["player"]["tasks_to_do"])
+                add_task(data[0]["player"]["tasks_to_do"])
 
             elif choice == "5":
-                complete_task(data["Player"]["tasks_to_do"])
+                complete_task(data[0]["player"]["tasks_to_do"])
 
             elif choice == "6":
                 can_fight_boss(data[0]["player"]["level"])
@@ -96,14 +97,27 @@ try:
                 print("INVALID INPUT ... TRY AGAIN")
             choice = input("Enter your choice: ")
     def new_data(user, passw):
-        user = input("Enter your new Hero Title: ")
+        raz = int(input("1.New user\n2.New Password\nEnter your choice:"))
+        if raz == 1:
+            user = input("Enter your new Hero Title: ")
+        elif raz ==2:
+            passw = input("Enter your new passcode: ")
     #==If player wants to view stats, this will print them.==
     def view_stats():
-        for player in data["player"]:
-            print(player["username"])
-            for i in player["tasks_to_do"]:
-                print(f"{i + 1}: {player["tasks_to_do"][i]}")
-            print(player["tasks_done"])
+        stats = {}
+        stats.update(data[0]['player'])
+        print(stats['user'])
+        print("Tasks to do:")
+        for player in stats['tasks_to_do']:
+            print(f"{0+1}.{player}")
+        print(f"Tasks Accomplished: {stats["tasks_done"]}")
+        print(f"Gold: {stats["gold"]}")
+        print(f"Level {stats["level"]}")
+        print(f"Player HP: {stats["hp"]}")
+        print(f"Loadout:\nSword:{stats['weapons_loadout']['sword']}\nBow:{stats['weapons_loadout']['bow']}\nShield:{stats['weapons_loadout']['shield']}")
+        print(f"Reward for Completing a task: {stats['task_reward']} Gold")
+        show_menu()
+
 
         while True:
             choice = input("Enter 0 to exit: ")
@@ -138,6 +152,7 @@ try:
         typing_effect("===Task Completion Reward Manager!===")
         for item in task_list:
             print(f"{item+1}. {task_list[item]}")
+        print(f"13. Exit")
         while not complete:
             try:
                 task_to_complete = int(input("Enter your accomplished task(number): "))
@@ -146,8 +161,14 @@ try:
                 else:
                     del task_list[task_to_complete]
                     complete = True
+                if task_to_complete==13:
+                    show_menu()
             except TypeError:
                 print("Task number must be an integer!")
+        if complete == True:
+            data[0]["player"]["tasks_done"] + 1
+            data[0]["player"]["gold"] + data[0]["player"]["task_reward"]
+            complete = not complete
 
 
     def choose_weapon(weapon_list):
