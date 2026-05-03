@@ -284,10 +284,13 @@ try:
         typing_effect(message)
         data["player"]["gold"] += data["rewards"][level_number]
 
-    def loss(level_number):
+    def loss():
         messages = ["It is too early for death.", "Save us!", "We NEED you.", "FIGHT FOR THE LAND OF LYSTE!", "Prove yourself to him.", f"{data["bosses"][level_number]} is waiting for you."]
         messages2 = ["Get Up.", "Wake Up.", ""]
-        message = random.choice
+        message = random.choice(messages)
+        message2 = random.choice(messages2)
+        typing_effect(message)
+        typing_effect(message2)
 
     def rebirth_player(level):
         if level <= 4:
