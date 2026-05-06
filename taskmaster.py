@@ -28,9 +28,10 @@ try:
     def reset_game():
         with open("player.json", "r") as f:
             json.load(f)
-            data[0]["player"] = {"player": {"user": "", "password": "", "tasks_to_do": [],"tasks_done": 0, "gold": 0,"level": 1, "hp": 100, "weapons_loadout": {"sword":"Bare Fists", "bow":"Bare Fists", "shield":"Bare Fists"}, "xp": 0, "lvl":1, "task_reward":  5}}
+            data[0]["player"] = {"user": "", "password": "", "tasks_to_do": [],"tasks_done": 0, "gold": 0,"level": 1, "hp": 100, "weapons_loadout": {"sword":"Bare Fists", "bow":"Bare Fists", "shield":"Bare Fists"}, "xp": 0, "lvl":1, "task_reward":  5}
             with open("player.json", "w") as f:
                 json.dump(data, f, indent=4)
+
     #==new profile addition==
     def create_player():
         done = False
@@ -152,25 +153,13 @@ try:
 
     def buy_items():
         print("=== TASKMASTER SHOP ===")
-
-        print("SWORDS :")
-
-        swords = data[1]['items']['swords']
-        for j in data[1]['items']:
-            for name, price in swords.items():
-                print(f"> {name} : {price} gold")
-        print(" ")
         print("BOWS :")
         bows = data[1]['items']['bows']
         for j in data[1]['items']:
             for name, price in bows.items():
                 print(f"> {name} : {price} gold")
         print(" ")
-        print("SHIELDS :")
-        shieds = data[1]['items']['shields']
-        for j in data[1]['items']:
-            for name, price in shieds.items():
-                print(f"> {name} : {price} ")
+
 
         global choice
         print("==============================:")
@@ -183,15 +172,15 @@ try:
         choice = input("Enter your choice: ")
         if choice == "1":
             buy_sw()
-            buy_items()
+
 
         elif choice == "2":
             buy_b()
-            buy_items()
+
 
         elif choice == "3":
             buy_sh()
-            buy_items()
+
 
         elif choice == "4":
             print("BYE! COME AGAIN!")
@@ -207,15 +196,76 @@ try:
 
 
     def buy_sw():
-        pass
+        print("SWORDS :")
+        for name, price in swords.items():
+            print(f"> {name} : {price}")
+        print("\n>0. Exit")
+        inpt = str(input("ENTER THE WEAPON YOU WANT(Enter name) : "))
+        for n in swords:
+            if inpt == n:
+                if data[0]['player']['gold'] >= data[1]['items']['swords'][n]['price']:
+                    data[0]['player']['gold'] = data[0]['player']['gold']-data[1]['items']['swords'][n]['price']
+                    data[0]['player']['weapons_loadout']['sword'] = n
+                    del swords[n]
+                    print(f"You have bought: '{n}'!")
+                    show_menu()
+                else:
+                    print("You too brokie, my guy")
+                    buy_sw()
+            elif inpt == 0:
+                buy_items()
+            else:
+                print("INVALID! PLEASE TRY AGAIN")
+                buy_sw()
 
 
     def buy_b():
-        pass
+        print("BOWS :")
+        for name, price in bows.items():
+            print(f"> {name} : {price} ")
+        print("\n>0. Exit")
+        inpt = str(input("ENTER THE WEAPON YOU WANT(Enter name) : "))
+        for n in bows:
+            if inpt == n:
+                if data[0]['player']['gold'] >= data[1]['items']['bows'][n]['price']:
+                    data[0]['player']['gold'] = data[0]['player']['gold']-data[1]['items']['bows'][n]['price']
+                    data[0]['player']['weapons_loadout']['bow'] = n
+                    del bows[n]
+                    print(f"You have bought: '{n}'!")
+                    show_menu()
+                else:
+                    print("You too brokie, my guy")
+                    buy_b()
+            elif inpt == 0:
+                buy_items()
+            else:
+                print("INVALID! PLEASE TRY AGAIN")
+                buy_b()
 
 
     def buy_sh():
-        pass
+        print("SHIELDS :")
+        for name, price in shields.items():
+            print(f"> {name} : {price} ")
+        print("\n>0. Exit")
+        inpt = str(input("ENTER THE WEAPON YOU WANT(Enter name) : "))
+        for n in shields:
+            if inpt == n:
+                if data[0]['player']['gold'] >= data[1]['items']['shields'][n]['price']:
+                    data[0]['player']['gold'] = data[0]['player']['gold'] - data[1]['items']['shields'][n]['price']
+                    data[0]['player']['weapons_loadout']['shield'] = n
+                    del shields[n]
+                    print(f"You have bought: '{n}'!")
+                    show_menu()
+                else:
+                    print("You too brokie, my guy")
+                    buy_sh()
+            elif inpt == 0:
+                buy_items()
+            else:
+                print("INVALID! PLEASE TRY AGAIN")
+                buy_sh()
+
 
 
     def add_task(task_list):
@@ -399,6 +449,13 @@ try:
 
     #printing intro and instructions.
     load_game()
+    global swords
+    global shields
+    global bows
+    swords = copy.deepcopy((data)[1]['items']['swords'])
+    shields = copy.deepcopy((data)[1]['items']['shields'])
+    bows = copy.deepcopy((data)[1]['items']['bows'])
+
     intro = input("Skip intro?(yes/no): ")
     Yes=["yes", "y", "Yes", "YES", "Y"]
     No= ["N", "n", "no", "NO", "N"]
