@@ -43,10 +43,18 @@ try:
         while not done:
             userlogin = input("Enter your Hero Title: ")
             passlogin = input("Enter your Hero's Code (password): ")
-            if userlogin == data[0]["player"]["user"] and passlogin == data[0]["player"]["password"]:
-                print("Logged in! Enjoy the experience!")
-                done = True
-                show_menu()
+            if userlogin and passlogin != "":
+                if userlogin == data[0]["player"]["user"] and passlogin == data[0]["player"]["password"]:
+                    print("Logged in! Enjoy the experience!")
+                    done = True
+                    show_menu()
+            elif userlogin and passlogin == "":
+                user = input("Enter your new Hero Title: ")
+                data[0]["player"]["user"] = user
+                passw = input("Enter your new passcode: ")
+                data[0]["player"]["password"] = passw
+
+
 
     #==printing menu and also choice picking option
     def show_menu():
