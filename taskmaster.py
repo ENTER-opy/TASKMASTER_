@@ -3,6 +3,7 @@ import json
 import random
 import time
 #===============Functions for gameplay=============
+count = 0
 try:
     #==loading json file(with saved progress)==
     def load_game():
@@ -54,12 +55,12 @@ try:
               "5. Mark task as completed\n"
               "6. Fight Boss\n"
               "7. New Profile(reset stats)\n"
-              "8. Buy Items\n"
-              "9. Delete Progress".title())
+              "8. Buy Items".title())
 
         choice = input("Enter your choice: ")
         if choice == "1":
             new_data(data[0]["player"]["user"], data[0]["player"]["password"])
+            show_menu()
 
         elif choice == "2":
             save_game()
@@ -67,15 +68,19 @@ try:
 
         elif choice == "3":
             view_stats()
+            show_menu()
 
         elif choice == "4":
             add_task(data[0]["player"]["tasks_to_do"])
+            show_menu()
 
         elif choice == "5":
             complete_task(data[0]["player"]["tasks_to_do"])
+            show_menu()
 
         elif choice == "6":
             can_fight_boss(data[0]["player"]["level"])
+            show_menu()
 
         elif choice == "7":
             reset_game()
@@ -83,9 +88,6 @@ try:
 
         elif choice == "8":
             buy_items()
-
-        elif choice == "9":
-            done = True
         else:
             print("INVALID INPUT ... TRY AGAIN")
     def new_data(user, passw):
@@ -100,8 +102,10 @@ try:
         stats.update(data[0]['player'])
         print(stats['user'])
         print("Tasks to do:")
+        global count
         for player in stats['tasks_to_do']:
-            print(f"{0+1}.{player}")
+            print(f"{count+1}.{player}")
+            count+=1
         print(f"Tasks Accomplished: {stats["tasks_done"]}")
         print(f"Gold: {stats["gold"]}")
         print(f"Level {stats["level"]}")
