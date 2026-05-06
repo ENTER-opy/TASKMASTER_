@@ -245,8 +245,8 @@ try:
             except TypeError:
                 print("Task number must be an integer!")
         if complete == True:
-            data[0]["player"]["tasks_done"] + 1
-            data[0]["player"]["gold"] + data[0]["player"]["task_reward"]
+            data[0]["player"]["tasks_done"] += 1
+            data[0]["player"]["gold"] += data[0]["player"]["task_reward"]
             complete = not complete
             show_menu()
 
