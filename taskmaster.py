@@ -230,7 +230,7 @@ try:
         typing_effect("===Welcome to Taskmaster's===")
         typing_effect("\n===Task Completion Reward Manager!===")
         for i, v in enumerate(task_list):
-            print(f"{i}. {v}")
+            print(f"\n{i+1}. {v}")
         print(f"\n13. Exit")
         while not complete:
             try:
