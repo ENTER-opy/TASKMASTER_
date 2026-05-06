@@ -393,7 +393,8 @@ try:
 
     def check_true_ending(level):
         if level == 4:
-            print(f"Four times you have started your journey anew, and four times have you have fought ")
+            print(f"Four times you have started your journey anew, and four times have you have fought\n"
+                  f"the very being that has plagued these lands for millenia.")
 
 
     #printing intro and instructions.

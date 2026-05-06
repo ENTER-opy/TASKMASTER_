@@ -1,12 +1,11 @@
 [
     {
         "player": {
-            "user": "",
-            "password": "",
-            "tasks_to_do": [
-            ],
-            "tasks_done": 0,
-            "gold": 0,
+            "user": "Person",
+            "password": "Password",
+            "tasks_to_do": [],
+            "tasks_done": 2,
+            "gold": 10,
             "level": 1,
             "hp": 100,
             "weapons_loadout": {
