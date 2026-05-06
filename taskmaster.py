@@ -150,9 +150,69 @@ try:
                 print(" ")
 
     def buy_items():
-        bought_items = []
-        for items in data["items"]:
-            bought_items.append(items["title"])
+        print("=== TASKMASTER SHOP ===")
+
+        print("SWORDS :")
+
+        swords = data[1]['items']['swords']
+        for j in data[1]['items']:
+            for name, price in swords.items():
+                print(f"> {name} : {price} gold")
+        print(" ")
+        print("BOWS :")
+        bows = data[1]['items']['bows']
+        for j in data[1]['items']:
+                for name, price in bows.items():
+                    print(f"> {name} : {price} gold")
+        print(" ")
+        print("SHIELDS :")
+        shieds = data[1]['items']['shields']
+        for j in data[1]['items']:
+            for name, price in shieds.items():
+                print(f"> {name} : {price} gold")
+
+        global choice
+        print("==============================:")
+        print("1. Buy a Sword\n"
+              "2. Buy a Shield\n"
+              "3. Buy a Bow\n"
+              "4. Exit Shop".title())
+        print(" ")
+
+        choice = input("Enter your choice: ")
+        if choice == "1":
+            buy_sw()
+            buy_items()
+
+        elif choice == "2":
+            buy_b()
+            buy_items()
+
+        elif choice == "3":
+            buy_sh()
+            buy_items()
+
+        elif choice == "4":
+            print("BYE! COME AGAIN!")
+            time.sleep(0.25)
+            print("Taking you to the main menu...")
+            time.sleep(0.25)
+            print(" ")
+            show_menu()
+
+        else:
+            print("INVALID INPUT ... TRY AGAIN")
+            buy_items()
+
+    def buy_sw():
+        pass
+
+    def buy_b():
+        pass
+
+    def buy_sh():
+        pass
+
 
     def add_task(task_list):
         typing_effect("===Welcome to Taskmaster's===")
