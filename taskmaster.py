@@ -43,7 +43,7 @@ try:
         while not done:
             userlogin = input("Enter your Hero Title: ")
             passlogin = input("Enter your Hero's Code (password): ")
-            if userlogin == data["player"]["user"] and passlogin == data[0]["player"]["password"]:
+            if userlogin == data[0]["player"]["user"] and passlogin == data[0]["player"]["password"]:
                 print("Logged in! Enjoy the experience!")
                 done = True
                 show_menu()
@@ -397,6 +397,7 @@ try:
     Yes=["yes", "y", "Yes", "YES", "Y"]
     No= ["N", "n", "no", "NO", "N"]
     if intro in Yes:
+        sign_in()
         show_menu()
     elif intro in No:
         typing_effect("====<<<<WELCOME TO TASKMASTER!>>>>====\n")
@@ -409,6 +410,7 @@ try:
             "after finishing a task, choose the Mark Task as Completed option. Great. You finished your first task. \n"
             "Now, you can buy items. Choose the Buy Items option. Buy ALL the items you need. Choose the Fight Boss option now.\n"
             "I'll give you instructions on how to fight it when you get there.\n")
+        sign_in()
         show_menu()
 
 

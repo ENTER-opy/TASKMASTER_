@@ -1,11 +1,12 @@
 [
     {
         "player": {
-            "user": "",
-            "password": "",
+            "user": "Gilgamesh",
+            "password": "Longdickr34",
             "tasks_to_do": [
                 "stuff",
-                "stuff"
+                "stuff",
+                "Do chem"
             ],
             "tasks_done": 0,
             "gold": 0,
