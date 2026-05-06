@@ -220,9 +220,13 @@ try:
     def add_task(task_list):
         typing_effect("===Welcome to Taskmaster's===")
         typing_effect("\n===Task Addition Manager!===")
-        task_to_add = input("\nEnter your task to add: ")
-        task_list.append(task_to_add)
-        print(f"Task {task_to_add} added to task list!")
+        if len(task_list) < 12:
+            task_to_add = input("\nEnter your task to add: ")
+            task_list.append(task_to_add)
+            print(f"Task {task_to_add} added to task list!")
+        else:
+            typing_effect("Brochacho you have too many tasks.")
+            typing_effect("Do some first.")
         show_menu()
 
     def complete_task(task_list):
