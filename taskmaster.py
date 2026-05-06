@@ -89,6 +89,7 @@ try:
 
         elif choice == "8":
             buy_items()
+            show_menu()
         else:
             print("INVALID INPUT ... TRY AGAIN")
             show_menu()
