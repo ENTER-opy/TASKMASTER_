@@ -221,25 +221,29 @@ try:
     def add_task(task_list):
         typing_effect("===Welcome to Taskmaster's===")
         typing_effect("\n===Task Addition Manager!===")
-        task_to_add = input("\nEnter your task to add: ")
-        task_list.append(task_to_add)
-        print(f"Task {task_to_add} added to task list!")
+        if len(task_list) < 12:
+            task_to_add = input("\nEnter your task to add: ")
+            task_list.append(task_to_add)
+            print(f"Task {task_to_add} added to task list!")
+        else:
+            typing_effect("Brochacho you have too many tasks.")
+            typing_effect("Do some first.")
         show_menu()
 
     def complete_task(task_list):
         complete = False
         typing_effect("===Welcome to Taskmaster's===")
-        typing_effect("\n===Task Completion Reward Manager!===")
+        typing_effect("\n===Task Completion Reward Manager!===\n")
         for i, v in enumerate(task_list):
-            print(f"\n{i+1}. {v}")
+            print(f"{i+1}. {v}")
         print(f"\n13. Exit")
         while not complete:
             try:
                 task_to_complete = int(input("Enter your accomplished task(number): "))
-                if task_to_complete >= (len(task_list)+1):
+                if task_to_complete-1 >= (len(task_list))or task_to_complete < 1:
                     print("Invalid task. Please try again.")
                 else:
-                    del task_list[task_to_complete]
+                    del task_list[task_to_complete-1]
                     complete = True
                 if task_to_complete==13:
                     show_menu()
