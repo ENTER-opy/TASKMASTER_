@@ -43,7 +43,8 @@ try:
             if userlogin == data["player"]["user"] and passlogin == data[0]["player"]["password"]:
                 print("Logged in! Enjoy the experience!")
                 done = True
-                done = True
+                show_menu()
+
     #==printing menu and also choice picking option
     def show_menu():
         global choice
@@ -90,12 +91,24 @@ try:
             buy_items()
         else:
             print("INVALID INPUT ... TRY AGAIN")
+            show_menu()
+
     def new_data(user, passw):
-        raz = int(input("1.New user\n2.New Password\nEnter your choice:"))
-        if raz == 1:
-            user = input("Enter your new Hero Title: ")
-        elif raz ==2:
-            passw = input("Enter your new passcode: ")
+        raz = int(input("1.New user\n2.New Password\n3.Cancel\nEnter your choice:"))
+        try:
+            if raz == 1:
+                user = input("Enter your new Hero Title: ")
+                return user
+            elif raz ==2:
+                passw = input("Enter your new passcode: ")
+                return passw
+            elif raz ==3:
+                show_menu()
+            show_menu()
+        except raz >= 4:
+            print("INVALID CHOICE. Please enter a valid number.")
+            new_data(data[0]["player"]["user"], data[0]["player"]["password"])
+
     #==If player wants to view stats, this will print them.==
     def view_stats():
         stats = {}
