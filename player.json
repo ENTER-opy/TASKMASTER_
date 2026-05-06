@@ -4,7 +4,9 @@
             "user": "",
             "password": "",
             "tasks_to_do": [
-                "Feed dog"
+                "Feed dog",
+                "do chem",
+                "finish gers"
             ],
             "tasks_done": 0,
             "gold": 0,
