@@ -58,40 +58,36 @@ try:
               "9. Delete Progress".title())
 
         choice = input("Enter your choice: ")
-        done = False
-        while not done:
-            if choice == "1":
-                new_data(data[0]["player"]["user"], data[0]["player"]["password"])
+        if choice == "1":
+            new_data(data[0]["player"]["user"], data[0]["player"]["password"])
 
-            elif choice == "2":
-                save_game()
-                print("Please Come Back.")
-                break
+        elif choice == "2":
+            save_game()
+            print("Please Come Back.")
 
-            elif choice == "3":
-                view_stats()
+        elif choice == "3":
+            view_stats()
 
-            elif choice == "4":
-                add_task(data[0]["player"]["tasks_to_do"])
+        elif choice == "4":
+            add_task(data[0]["player"]["tasks_to_do"])
 
-            elif choice == "5":
-                complete_task(data[0]["player"]["tasks_to_do"])
+        elif choice == "5":
+            complete_task(data[0]["player"]["tasks_to_do"])
 
-            elif choice == "6":
-                can_fight_boss(data[0]["player"]["level"])
+        elif choice == "6":
+            can_fight_boss(data[0]["player"]["level"])
 
-            elif choice == "7":
-                reset_game()
-                print("Returning to square 0:")
+        elif choice == "7":
+            reset_game()
+            print("Returning to square 0:")
 
-            elif choice == "8":
-                buy_items()
+        elif choice == "8":
+            buy_items()
 
-            elif choice == "9":
-                done = True
-            else:
-                print("INVALID INPUT ... TRY AGAIN")
-            choice = input("Enter your choice: ")
+        elif choice == "9":
+            done = True
+        else:
+            print("INVALID INPUT ... TRY AGAIN")
     def new_data(user, passw):
         raz = int(input("1.New user\n2.New Password\nEnter your choice:"))
         if raz == 1:

@@ -3,7 +3,9 @@
         "player": {
             "user": "",
             "password": "",
-            "tasks_to_do": [],
+            "tasks_to_do": [
+                "Feed dog"
+            ],
             "tasks_done": 0,
             "gold": 0,
             "level": 1,
