@@ -2,10 +2,10 @@
 import json
 import random
 import time
+import copy
 #===============Functions for gameplay=============
 count = 0
 try:
-    data = []
     #==loading json file(with saved progress)==
     def load_game():
         xp = 0
@@ -13,7 +13,7 @@ try:
             global data
             global datas
             datas = json.load(f)
-            data.append(datas)
+            data = copy.deepcopy(datas)
             return data
 
     def typing_effect(text):
@@ -22,30 +22,28 @@ try:
             time.sleep(0.05)
     #==saving game for progress saving==
     def save_game():
-        datass = str(data)
-        datass = datass[1:-1]
         with open("player.json", "w") as f:
-            json.dump(datass, f, indent=4)
+            json.dump(data, f, indent=4)
     #==resetting profile for restart==
     def reset_game():
         with open("player.json", "r") as f:
             json.load(f)
-            data[0]["player"] = {"player": {"user": "", "password": "", "tasks_to_do": [],"tasks_done": 0, "gold": 0,"level": 1, "hp": 100, "weapons_loadout": {"sword":"Bare Fists", "bow":"Bare Fists", "shield":"Bare Fists"}, "xp": 0, "lvl":1, "task_reward":  5}}
+            data["player"] = {"player": {"user": "", "password": "", "tasks_to_do": [],"tasks_done": 0, "gold": 0,"level": 1, "hp": 100, "weapons_loadout": {"sword":"Bare Fists", "bow":"Bare Fists", "shield":"Bare Fists"}, "xp": 0, "lvl":1, "task_reward":  5}}
             with open("player.json", "w") as f:
-                json.dump(data[0][0], f, indent=4)
+                json.dump(data, f, indent=4)
     #==new profile addition==
     def create_player():
         done = False
         while not done:
-            data[0]["player"]["username"] = input("Enter your preferred Hero Title: ")
-            data[0]["player"]["password"] = input("Enter your preferred Hero's Code (password): ")
+            data["player"]["username"] = input("Enter your preferred Hero Title: ")
+            data["player"]["password"] = input("Enter your preferred Hero's Code (password): ")
     #==login for security purposes==
     def sign_in():
         done = False
         while not done:
             userlogin = input("Enter your Hero Title: ")
             passlogin = input("Enter your Hero's Code (password): ")
-            if userlogin == data[0]["player"]["user"] and passlogin == data[0][0]["player"]["password"]:
+            if userlogin == data["player"]["user"] and passlogin == data[0]["player"]["password"]:
                 print("Logged in! Enjoy the experience!")
                 done = True
                 show_menu()
@@ -65,11 +63,11 @@ try:
 
         choice = input("Enter your choice: ")
         if choice == "1":
-            new_data(data[0][0]["player"]["user"], data[0][0]["player"]["password"])
+            new_data(data[0]["player"]["user"], data[0]["player"]["password"])
             show_menu()
 
         elif choice == "2":
-            save_game(data)
+            save_game()
             print("Please Come Back.")
 
         elif choice == "3":
@@ -77,15 +75,15 @@ try:
             show_menu()
 
         elif choice == "4":
-            add_task(data[0][0]["player"]["tasks_to_do"])
+            add_task(data[0]["player"]["tasks_to_do"])
             show_menu()
 
         elif choice == "5":
-            complete_task(data[0][0]["player"]["tasks_to_do"])
+            complete_task(data[0]["player"]["tasks_to_do"])
             show_menu()
 
         elif choice == "6":
-            can_fight_boss(data[0][0]["player"]["level"])
+            can_fight_boss(data[0]["player"]["level"])
             show_menu()
 
         elif choice == "7":
@@ -104,23 +102,23 @@ try:
         try:
             if raz == 1:
                 user = input("Enter your new Hero Title: ")
-                data[0][0]["player"]["user"] = user
+                data[0]["player"]["user"] = user
                 return data
             elif raz ==2:
                 passw = input("Enter your new passcode: ")
-                data[0][0]["player"]["password"] = passw
+                data[0]["player"]["password"] = passw
                 return data
             elif raz ==3:
                 show_menu()
             show_menu()
         except raz >= 4:
             print("INVALID CHOICE. Please enter a valid number.")
-            new_data(data[0][0]["player"]["user"], data[0][0]["player"]["password"])
+            new_data(data[0]["player"]["user"], data[0]["player"]["password"])
 
     #==If player wants to view stats, this will print them.==
     def view_stats():
         stats = {}
-        stats.update(data[0][0]['player'])
+        stats.update(data[0]['player'])
         print(stats['user'])
         print("Tasks to do:")
         global count
@@ -152,65 +150,9 @@ try:
                 print(" ")
 
     def buy_items():
-        print("=== TASKMASTER SHOP ===")
-
-        print("SWORDS :")
-
-        swords = data[1]['items']['swords']
-        for j in data[1]['items']:
-            for name, price in swords.items():
-                print(f"> {name} : {price} gold")
-        print(" ")
-        print("BOWS :")
-        bows = data[1]['items']['bows']
-        for j in data[1]['items']:
-                for name, price in bows.items():
-                    print(f"> {name} : {price} gold")
-        print(" ")
-        print("SHIELDS :")
-        shieds = data[1]['items']['shields']
-        for j in data[1]['items']:
-            for name, price in shieds.items():
-                print(f"> {name} : {price} gold")
-
-        global choice
-        print("==============================:")
-        print("1. Buy a Sword\n"
-              "2. Buy a Shield\n"
-              "3. Buy a Bow\n"
-              "4. Exit Shop".title())
-        print(" ")
-
-        choice = input("Enter your choice: ")
-        if choice == "1":
-            buy_sw()
-            buy_items()
-
-        elif choice == "2":
-            buy_b()
-            buy_items()
-
-        elif choice == "3":
-            buy_sh()
-            buy_items()
-
-        elif choice == "4":
-            print("BYE! COME AGAIN!")
-            time.sleep(0.25)
-            print("Taking you to the main menu...")
-            time.sleep(0.25)
-            print(" ")
-            show_menu()
-
-        else:
-            print("INVALID INPUT ... TRY AGAIN")
-            buy_items()
-
-    def buy_sw()
-
-    def buy_b()
-
-    def buy_sh()
+        bought_items = []
+        for items in data["items"]:
+            bought_items.append(items["title"])
 
     def add_task(task_list):
         typing_effect("===Welcome to Taskmaster's===")
@@ -240,8 +182,8 @@ try:
             except TypeError:
                 print("Task number must be an integer!")
         if complete == True:
-            data[0][0]["player"]["tasks_done"] + 1
-            data[0][0]["player"]["gold"] + data[0][0]["player"]["task_reward"]
+            data[0]["player"]["tasks_done"] + 1
+            data[0]["player"]["gold"] + data[0]["player"]["task_reward"]
             complete = not complete
             show_menu()
 
@@ -264,17 +206,17 @@ try:
     def enemy_choose_weapon():
         echoose = random.randint(0,2)
         if echoose == 0:
-            eweap = data[0][7]["boss_items"]["sword"]
+            eweap = data[7]["boss_items"]["sword"]
         elif echoose == 1:
-            eweap = data[0][7]["boss_items"]["bow"]
+            eweap = data[7]["boss_items"]["bow"]
         elif echoose == 2:
-            eweap = data[0][7]["boss_items"]["shield"]
-        print(f"{data[0][6]["bosses"][data[0][0]["player"]["level"]]} uses {eweap}")
+            eweap = data[7]["boss_items"]["shield"]
+        print(f"{data[6]["bosses"][data[0]["player"]["level"]]} uses {eweap}")
 
 
     def resolve_round(chosen_weapon, eweap, echoose):
-      if data[0][6]["boss_hp"][data[0][0]["player"]["level"]] != 0:
-        if data[0][0]["player"]["hp"] != 0:
+      if data[6]["boss_hp"][data[0]["player"]["level"]] != 0:
+        if data[0]["player"]["hp"] != 0:
           if eweap == True:
             if chosen_weapon == True:
               if echoose==chosen_weapon:
@@ -315,11 +257,11 @@ try:
                      chosen_weapon = False
                      pass
             else:
-              choose_weapon(data[0][0]["player"]["weapons_loadout"])
+              choose_weapon(data[0]["player"]["weapons_loadout"])
           else:
             enemy_choose_weapon()
         else:
-          loss(data[0][0]["player"]["level"])
+          loss(data[0]["player"]["level"])
       else:
         pass
 
@@ -329,23 +271,23 @@ try:
         win = False
         print(f"===Your Opponent is....===")
         time.sleep(1)
-        print(f">>=={data[0][6]["bosses"][level_number]}!==<<")
+        print(f">>=={data[6]["bosses"][level_number]}!==<<")
         if level_number == 1:
             typing_effect("Here's how you fight the boss!\n Simply select a weapon, and see how the wheel of fate turns.\n Sword beats Shield, Sheild Beats bow, and Bow beats Sword.")
             typing_effect("Pr")
-        while data[0][6]["boss_hp"][data[0][0]["player"]["level"]] != 0:
-            while data[0][0]["player"]["hp"] != 0:
-                resolve_round(choose_weapon(data[0][0]["player"]["weapons_loadout"]), enemy_choose_weapon(),enemy_choose_weapon())
+        while data[6]["boss_hp"][data[0]["player"]["level"]] != 0:
+            while data[0]["player"]["hp"] != 0:
+                resolve_round(choose_weapon(data[0]["player"]["weapons_loadout"]), enemy_choose_weapon(),enemy_choose_weapon())
 
 
     def can_fight_boss(level_number):
-        data[0]
+        data
         global cost
-        cost = data[0][3]["prices"]["bosses"][level_number]
+        cost = data[3]["prices"]["bosses"][level_number]
         print(f"To fight the boss, you need at least {cost} gold as payment.")
-        if data[0][0]["player"]["gold"] >= cost:
+        if data[0]["player"]["gold"] >= cost:
             print("Ok, you can fight the boss!")
-            pay_boss_cost(data[0][0]["player"]["level"])
+            pay_boss_cost(data[0]["player"]["level"])
             return True
         else:
             print("You can't fight the boss! Grind some more tasks!")
@@ -354,20 +296,20 @@ try:
 
 
     def pay_boss_cost(level_number):
-        if can_fight_boss(data[0][0]["player"]["level"]-1):
+        if can_fight_boss(data[0]["player"]["level"]-1):
             level_number["player"]["gold"] -= cost
             print(f"You have {level_number["player"]["gold"]} gold left.")
             print("Now, enter the boss arena!")
-            boss_round(data[0][0]["player"]["level"])
+            boss_round(data[0]["player"]["level"])
 
 
     def give_boss_reward(level_number):
         message = f"For defeating {level_number["bosses"][level_number]}, you get {level_number["rewards"][level_number]} gold!"
         typing_effect(message)
-        data[0]["player"]["gold"] += data[0]["rewards"][level_number]
+        data["player"]["gold"] += data["rewards"][level_number]
 
     def loss():
-        messages = ["It is too early for death.", "Save us!", "We NEED you.", "FIGHT FOR THE LAND OF LYSTE!", "Prove yourself to him.", f"{data[0][6]["bosses"][data[0][0]['player']['level']]} is waiting for you."]
+        messages = ["It is too early for death.", "Save us!", "We NEED you.", "FIGHT FOR THE LAND OF LYSTE!", "Prove yourself to him.", f"{data[6]["bosses"][data[0]['player']['level']]} is waiting for you."]
         messages2 = ["Get Up.", "Wake Up.", ""]
         message = random.choice(messages)
         message2 = random.choice(messages2)
@@ -376,7 +318,7 @@ try:
 
     def rebirth_player(level):
         if level <= 4:
-            typing_effect(f"The Land of Lyste is safe once again thanks to you, o great {data[0]['player']['user']} the Taskmaster.")
+            typing_effect(f"The Land of Lyste is safe once again thanks to you, o great {data['player']['user']} the Taskmaster.")
             typing_effect("Do you wish to rebirth and start your journey anew?(yes/no): ")
             level += 1
 
@@ -388,7 +330,6 @@ try:
 
     #printing intro and instructions.
     load_game()
-    print(data)
     intro = input("Skip intro?(yes/no): ")
     Yes=["yes", "y", "Yes", "YES", "Y"]
     No= ["N", "n", "no", "NO", "N"]
