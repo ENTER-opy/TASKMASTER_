@@ -23,46 +23,23 @@
     {
         "items": {
             "swords": {
-          "The Mighty Stick":10 ,
-          "The Rusted Blade":25,
-          "The Iron Sword": 60 ,
-          "The Dragon's Blade": 150
+          "The Mighty Stick":{"price":10, "damage":10} ,
+          "The Rusted Blade":{"price":25, "damage":35},
+          "The Iron Sword": {"price":60, "damage":70} ,
+          "The Dragon's Blade": {"price":150, "damage":170}
                       },
             "bows": {
-          "The Mighty Slingshot": 10,
-          "The Crooked Bow": 25,
-          "The Pillager's Crossbow": 60,
-          "David's Sling": 120
+          "The Mighty Slingshot": {"price":10, "damage":20} ,
+          "The Crooked Bow": {"price":25, "damage":30},
+          "The Pillager's Crossbow": {"price":60, "damage":75},
+          "David's Sling": {"price":120, "damage":180}
                     },
             "shields": {
-          "The Ceramic Plate": 15,
-          "The Great Stone Slab": 30,
-          "The Viking Shield": 55,
-          "Caesar's Shield": 150
+          "The Ceramic Plate": {"price":15, "damage":15},
+          "The Great Stone Slab": {"price":30, "damage":25},
+          "The Viking Shield": {"price":55, "damage":60},
+          "Caesar's Shield": {"price":150, "damage":170}
                          }
-        }
-    },
-
-    {
-        "damage": {
-            "swords": [
-                10,
-                35,
-                70,
-                170
-            ],
-            "bows": [
-                20,
-                30,
-                75,
-                180
-            ],
-            "shields": [
-                15,
-                25,
-                60,
-                170
-            ]
         }
     },
     {
