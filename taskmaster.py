@@ -239,10 +239,10 @@ try:
         while not complete:
             try:
                 task_to_complete = int(input("Enter your accomplished task(number): "))
-                if task_to_complete >= (len(task_list)+1):
+                if task_to_complete-1 >= (len(task_list))or task_to_complete < 1:
                     print("Invalid task. Please try again.")
                 else:
-                    del task_list[task_to_complete]
+                    del task_list[task_to_complete-1]
                     complete = True
                 if task_to_complete==13:
                     show_menu()
