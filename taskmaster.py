@@ -5,12 +5,15 @@ import time
 #===============Functions for gameplay=============
 count = 0
 try:
+    data = []
     #==loading json file(with saved progress)==
     def load_game():
         xp = 0
         with open("player.json", "r") as f:
             global data
-            data = json.load(f)
+            global datas
+            datas = json.load(f)
+            data = datas
             return data
 
     def typing_effect(text):
@@ -20,14 +23,14 @@ try:
     #==saving game for progress saving==
     def save_game():
         with open("player.json", "w") as f:
-            json.dump(data, f, indent=4)
+            json.dump(datas, f, indent=4)
     #==resetting profile for restart==
     def reset_game():
         with open("player.json", "r") as f:
-            data = json.load(f)
+            datas = json.load(f)
             data[0]["player"] = {"player": {"user": "", "password": "", "tasks_to_do": [],"tasks_done": 0, "gold": 0,"level": 1, "hp": 100, "weapons_loadout": {"sword":"Bare Fists", "bow":"Bare Fists", "shield":"Bare Fists"}, "xp": 0, "lvl":1, "task_reward":  5}}
             with open("player.json", "w") as f:
-                json.dump(data, f, indent=4)
+                json.dump(datas, f, indent=4)
     #==new profile addition==
     def create_player():
         done = False
