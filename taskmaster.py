@@ -332,7 +332,6 @@ try:
 
     #printing intro and instructions.
     load_game()
-    print(data)
     intro = input("Skip intro?(yes/no): ")
     Yes=["yes", "y", "Yes", "YES", "Y"]
     No= ["N", "n", "no", "NO", "N"]
