@@ -1,7 +1,6 @@
 [
     {
-        "player": {
-            "player": {
+       "player": {
                 "user": "",
                 "password": "",
                 "tasks_to_do": [],
