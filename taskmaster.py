@@ -41,12 +41,13 @@ try:
     def sign_in():
         done = False
         while not done:
-            userlogin = input("Enter your Hero Title: ")
-            passlogin = input("Enter your Hero's Code (password): ")
+            userlogin = input("Enter your Hero Title (If none has been set, just press Enter): ")
+            passlogin = input("Enter your Hero's Code (password) (If none has been set, just press Enter): ")
             if userlogin == data[0]["player"]["user"] and passlogin == data[0]["player"]["password"]:
-                print("Logged in! Enjoy the experience!")
-                done = True
-                show_menu()
+               print("Logged in! Enjoy the experience!")
+               done = True
+            show_menu()
+
 
     #==printing menu and also choice picking option
     def show_menu():
