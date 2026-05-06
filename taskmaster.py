@@ -195,6 +195,7 @@ try:
             eweap = data[7]["boss_items"]["shield"]
         print(f"{data[6]["bosses"][data[0]["player"]["level"]]} uses {eweap}")
 
+
     def resolve_round(chosen_weapon, eweap, echoose):
       if data[6]["boss_hp"][data[0]["player"]["level"]] != 0:
         if data[0]["player"]["hp"] != 0:
