@@ -24,7 +24,7 @@ try:
     def reset_game():
         with open("players.json", "r") as f:
             data = json.load(f)
-            data["player"] = {"player": {"user": "", "password": "", "tasks_to_do": [],"tasks_done": 0, "gold": 0,"level": 1, "hp": 100, "weapons_loadout": ["Bare Fists", "", ""], "xp": 0, "lvl":1, "task_reward":  5}}
+            data[0]["player"] = {"player": {"user": "", "password": "", "tasks_to_do": [],"tasks_done": 0, "gold": 0,"level": 1, "hp": 100, "weapons_loadout": {"sword":"Bare Fists", "bow":"Bare Fists", "shield":"Bare Fists"}, "xp": 0, "lvl":1, "task_reward":  5}}
             with open("players.json", "w") as f:
                 json.dump(data, f, indent=4)
     #==new profile addition==
@@ -66,8 +66,7 @@ try:
             elif choice == "2":
                 save_game()
                 print("Please Come Back.")
-                done = True
-                return done
+                break
 
             elif choice == "3":
                 view_stats()
