@@ -170,7 +170,7 @@ try:
         shieds = data[1]['items']['shields']
         for j in data[1]['items']:
             for name, price in shieds.items():
-                print(f"> {name} : {price} gold")
+                print(f"> {name} : {price} ")
 
         global choice
         print("==============================:")
