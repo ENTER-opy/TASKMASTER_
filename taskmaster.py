@@ -18,14 +18,14 @@ try:
             time.sleep(0.05)
     #==saving game for progress saving==
     def save_game():
-        with open("players.json", "w") as f:
+        with open("player.json", "w") as f:
             json.dump(data, f, indent=4)
     #==resetting profile for restart==
     def reset_game():
-        with open("players.json", "r") as f:
+        with open("player.json", "r") as f:
             data = json.load(f)
             data[0]["player"] = {"player": {"user": "", "password": "", "tasks_to_do": [],"tasks_done": 0, "gold": 0,"level": 1, "hp": 100, "weapons_loadout": {"sword":"Bare Fists", "bow":"Bare Fists", "shield":"Bare Fists"}, "xp": 0, "lvl":1, "task_reward":  5}}
-            with open("players.json", "w") as f:
+            with open("player.json", "w") as f:
                 json.dump(data, f, indent=4)
     #==new profile addition==
     def create_player():
