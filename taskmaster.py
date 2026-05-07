@@ -28,7 +28,7 @@ try:
     def reset_game():
         with open("player.json", "r") as f:
             json.load(f)
-            data[0]["player"] = {"user": "", "password": "", "tasks_to_do": [],"tasks_done": 0, "gold": 0,"level": 1, "hp": 100, "weapons_loadout": {"sword":"Bare Fists", "bow":"Bare Fists", "shield":"Bare Fists"}, "xp": 0, "lvl":1, "task_reward":  5}
+            data[0] = {"user": "", "password": "", "tasks_to_do": [],"tasks_done": 0, "gold": 0,"level": 1, "hp": 100, "weapons_loadout": {"sword":"Bare Fists", "bow":"Bare Fists", "shield":"Bare Fists"}, "xp": 0, "lvl":1, "task_reward":  5}
             with open("player.json", "w") as f:
                 json.dump(data, f, indent=4)
 
