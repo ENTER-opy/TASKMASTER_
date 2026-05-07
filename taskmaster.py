@@ -175,11 +175,11 @@ try:
 
 
         elif choice == "2":
-            buy_b()
+            buy_sh()
 
 
         elif choice == "3":
-            buy_sh()
+            buy_b()
 
 
         elif choice == "4":
