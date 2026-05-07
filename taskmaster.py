@@ -324,16 +324,16 @@ try:
     def enemy_choose_weapon():
         echoose = random.randint(0,2)
         if echoose == 0:
-            eweap = data[7]["boss_items"]["sword"]
+            eweap = data[4]["boss_items"]["sword"]
         elif echoose == 1:
-            eweap = data[7]["boss_items"]["bow"]
+            eweap = data[4]["boss_items"]["bow"]
         elif echoose == 2:
-            eweap = data[7]["boss_items"]["shield"]
-        print(f"{data[6]["bosses"][data[0]["player"]["level"]]} uses {eweap}")
+            eweap = data[4]["boss_items"]["shield"]
+        print(f"{data[3]["bosses"][data[0]["player"]["level"]]} uses {eweap}")
 
 
     def resolve_round(chosen_weapon, eweap, echoose):
-      if data[6]["boss_hp"][data[0]["player"]["level"]] != 0:
+      if data[3]["boss_hp"][data[0]["player"]["level"]] != 0:
         if data[0]["player"]["hp"] != 0:
           if eweap == True:
             if chosen_weapon == True:
@@ -389,36 +389,33 @@ try:
         win = False
         print(f"===Your Opponent is....===")
         time.sleep(1)
-        print(f">>=={data[6]["bosses"][level_number]}!==<<")
+        print(f">>=={data[3]["bosses"][level_number]}!==<<")
         if level_number == 1:
             typing_effect("Here's how you fight the boss!\n Simply select a weapon, and see how the wheel of fate turns.\n Sword beats Shield, Sheild Beats bow, and Bow beats Sword.")
             typing_effect("Pr")
-        while data[6]["boss_hp"][data[0]["player"]["level"]] != 0:
+        while data[3]["boss_hp"][data[0]["player"]["level"]] != 0:
             while data[0]["player"]["hp"] != 0:
                 resolve_round(choose_weapon(data[0]["player"]["weapons_loadout"]), enemy_choose_weapon(),enemy_choose_weapon())
 
 
     def can_fight_boss(level_number):
-        data
         global cost
-        cost = data[3]["prices"]["bosses"][level_number]
+        cost = data[3]["boss_price"][level_number]
         print(f"To fight the boss, you need at least {cost} gold as payment.")
         if data[0]["player"]["gold"] >= cost:
             print("Ok, you can fight the boss!")
-            pay_boss_cost(data[0]["player"]["level"])
-            return True
+            pay_boss_cost()
         else:
             print("You can't fight the boss! Grind some more tasks!")
             show_menu()
-            return None
 
 
-    def pay_boss_cost(level_number):
-        if can_fight_boss(data[0]["player"]["level"]-1):
-            level_number["player"]["gold"] -= cost
-            print(f"You have {level_number["player"]["gold"]} gold left.")
-            print("Now, enter the boss arena!")
-            boss_round(data[0]["player"]["level"])
+
+    def pay_boss_cost():
+        data[0]["player"]["gold"] -= cost
+        print(f"You have {data[0]["player"]["gold"]} gold left.")
+        print("Now, enter the boss arena!")
+        boss_round(data[0]["player"]["level"])
 
 
     def give_boss_reward(level_number):
