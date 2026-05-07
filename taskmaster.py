@@ -3,6 +3,7 @@ import json
 import random
 import time
 import copy
+import sys
 #===============Functions for gameplay=============
 count = 0
 try:
@@ -91,6 +92,7 @@ try:
         elif choice == "7":
             reset_game()
             print("Returning to square 0:")
+            sys.exit(1)
 
         elif choice == "8":
             buy_items()
@@ -206,7 +208,6 @@ try:
                 if data[0]['player']['gold'] >= data[1]['items']['swords'][n]['price']:
                     data[0]['player']['gold'] = data[0]['player']['gold']-data[1]['items']['swords'][n]['price']
                     data[0]['player']['weapons_loadout']['sword'] = n
-                    del swords[n]
                     print(f"You have bought: '{n}'!")
                     show_menu()
                 else:
@@ -230,7 +231,6 @@ try:
                 if data[0]['player']['gold'] >= data[1]['items']['bows'][n]['price']:
                     data[0]['player']['gold'] = data[0]['player']['gold']-data[1]['items']['bows'][n]['price']
                     data[0]['player']['weapons_loadout']['bow'] = n
-                    del bows[n]
                     print(f"You have bought: '{n}'!")
                     show_menu()
                 else:
@@ -254,7 +254,6 @@ try:
                 if data[0]['player']['gold'] >= data[1]['items']['shields'][n]['price']:
                     data[0]['player']['gold'] = data[0]['player']['gold'] - data[1]['items']['shields'][n]['price']
                     data[0]['player']['weapons_loadout']['shield'] = n
-                    del shields[n]
                     print(f"You have bought: '{n}'!")
                     show_menu()
                 else:
@@ -317,6 +316,7 @@ try:
         valid = False
         try:
             chosen_weapon = int(input("Enter your chosen weapon: "))
+            return chosen_weapon
         except TypeError:
             print("Invalid choice. Please try again.")
         print(f"You have chosen to use {weapons[chosen_weapon-1]}")
@@ -330,54 +330,57 @@ try:
         elif echoose == 2:
             eweap = data[4]["boss_items"]["shield"]
         print(f"{data[3]["bosses"][data[0]["player"]["level"]]} uses {eweap}")
+        return echoose
 
 
-    def resolve_round(chosen_weapon, eweap, echoose):
+    def resolve_round(chosen_weapon, echoose):
       if data[3]["boss_hp"][data[0]["player"]["level"]] != 0:
         if data[0]["player"]["hp"] != 0:
-          if eweap == True:
-            if chosen_weapon == True:
-              if echoose==chosen_weapon:
-                  print("Tie")
-                  eweap = False
-                  chosen_weapon = False
-              elif chosen_weapon-1 == 0:
-                 if eweap == "shield":
-                 #deal damage to enemy
-                     eweap = False
-                     chosen_weapon = False
-                     pass
-                 elif eweap == "bow":
-                 #do damage to player
-                     eweap = False
-                     chosen_weapon = False
-                     pass
+              if chosen_weapon-1 == 0:
+                 if echoose == 2:
+                    print("SUCCESS")
+                    data[3]["boss_hp"][data[0]["player"]["level"]] -= data[1]['items']['swords'][data[0]["player"]["weapons_loadout"]['sword']]['damage']
+                    print(f"Boss HP: {data[3]["boss_hp"][data[0]["player"]["level"]]}\n"
+                          f"Player HP: {data[0]['player']['hp']}")
+                 elif echoose == 1:
+                     print("That wasn't it, Chief")
+                     data[0]["player"]['hp'] -= data[5]['boss_damage'][data[0]["player"]["level"]]
+                     print(f"Boss HP: {data[3]["boss_hp"][data[0]["player"]["level"]]}\n"
+                           f"Player HP: {data[0]['player']['hp']}")
+                 if echoose == 3:
+                     print("Tie")
               elif chosen_weapon-1 == 1:
-                 if eweap == "shield":
-                 #do dmg to player
-                     eweap = False
-                     chosen_weapon = False
+                 if echoose == 2:
+                     print("That wasn't it, Chief")
+                     data[0]["player"]['hp'] -= data[5]['boss_damage'][data[0]["player"]["level"]]
+                     print(f"Boss HP: {data[3]["boss_hp"][data[0]["player"]["level"]]}\n"
+                           f"Player HP: {data[0]['player']['hp']}")
                      pass
-                 elif eweap == "sword":
-                 #do dmg to enemy
-                     eweap = False
-                     chosen_weapon = False
-                     pass
-              elif chosen_weapon-1 == 3:
-                 if eweap == "bow":
-                     #do dmg to enemy
-                     eweap = False
-                     chosen_weapon = False
-                     pass
-                 elif eweap == "sword":
-                     # do dmg to player
-                     eweap = False
-                     chosen_weapon = False
-                     pass
-            else:
-              choose_weapon(data[0]["player"]["weapons_loadout"])
-          else:
-            enemy_choose_weapon()
+                 elif echoose == 0:
+                    print("SUCCESS")
+                    data[3]["boss_hp"][data[0]["player"]["level"]] -= data[1]['items']['bows'][data[0]["player"]["weapons_loadout"]['bow']]['damage']
+                    print(f"Boss HP: {data[3]["boss_hp"][data[0]["player"]["level"]]}\n"
+                          f"Player HP: {data[0]['player']['hp']}")
+
+                    pass
+                 if echoose == 1:
+                     print("Tie")
+
+              elif chosen_weapon-1 == 2:
+                 if echoose == 0:
+                    print("SUCCESS")
+                    data[3]["boss_hp"][data[0]["player"]["level"]] -= data[1]['items']['shields'][data[0]["player"]["weapons_loadout"]['shield']]['damage']
+                    print(f"Boss HP: {data[3]["boss_hp"][data[0]["player"]["level"]]}\n"
+                          f"Player HP: {data[0]['player']['hp']}")
+                    pass
+                 elif echoose == 1:
+                     print("That wasn't it, Chief")
+                     data[0]["player"]['hp'] -= data[5]['boss_damage'][data[0]["player"]["level"]]
+                     print(f"Boss HP: {data[3]["boss_hp"][data[0]["player"]["level"]]}\n"
+                           f"Player HP: {data[0]['player']['hp']}")
+                 if echoose == 3:
+                     print("Tie")
+
         else:
           loss(data[0]["player"]["level"])
       else:
@@ -395,7 +398,7 @@ try:
             typing_effect("Pr")
         while data[3]["boss_hp"][data[0]["player"]["level"]] != 0:
             while data[0]["player"]["hp"] != 0:
-                resolve_round(choose_weapon(data[0]["player"]["weapons_loadout"]), enemy_choose_weapon(),enemy_choose_weapon())
+                resolve_round(choose_weapon(data[0]["player"]["weapons_loadout"]), enemy_choose_weapon())
 
 
     def can_fight_boss(level_number):
@@ -452,7 +455,6 @@ try:
     swords = copy.deepcopy((data)[1]['items']['swords'])
     shields = copy.deepcopy((data)[1]['items']['shields'])
     bows = copy.deepcopy((data)[1]['items']['bows'])
-
     intro = input("Skip intro?(yes/no): ")
     Yes=["yes", "y", "Yes", "YES", "Y"]
     No= ["N", "n", "no", "NO", "N"]
