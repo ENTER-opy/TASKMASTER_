@@ -48,6 +48,9 @@ try:
             if userlogin == data[0]["player"]["user"] and passlogin == data[0]["player"]["password"]:
                print("Logged in! Enjoy the experience!")
                done = True
+            else:
+                print("INVALID! Please Check if Your Credentials are Correct")
+                sign_in()
             show_menu()
 
 
@@ -72,6 +75,7 @@ try:
         elif choice == "2":
             save_game()
             print("Please Come Back.")
+            sys.exit(1)
 
         elif choice == "3":
             view_stats()
