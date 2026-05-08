@@ -1,9 +1,11 @@
 [
     {
         "player": {
-            "user": "",
-            "password": "",
-            "tasks_to_do": [],
+            "user": "ILOVEAVENTURINE",
+            "password": "iloveaventurine67",
+            "tasks_to_do": [
+                "Gamble"
+            ],
             "tasks_done": 0,
             "gold": 0,
             "level": 1,

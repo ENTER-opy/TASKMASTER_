@@ -159,12 +159,6 @@ try:
 
     def buy_items():
         print("=== TASKMASTER SHOP ===")
-        print("BOWS :")
-        bows = data[1]['items']['bows']
-        for j in data[1]['items']:
-            for name, price in bows.items():
-                print(f"> {name} : {price} gold")
-        print(" ")
 
 
         global choice
@@ -217,7 +211,7 @@ try:
                 else:
                     print("You too brokie, my guy")
                     buy_sw()
-            elif inpt == 0:
+            elif inpt == "0":
                 buy_items()
             else:
                 print("INVALID! PLEASE TRY AGAIN")
